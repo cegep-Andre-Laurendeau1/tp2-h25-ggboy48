@@ -1,8 +1,4 @@
-package ca.cal.tp1.modele.utilisateur;
-
-import ca.cal.tp1.modele.Amende;
-import ca.cal.tp1.modele.document.Document;
-import ca.cal.tp1.modele.Emprunt;
+package ca.cal.tp1.modele;
 
 import java.util.ArrayList;
 import java.util.List;

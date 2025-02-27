@@ -1,34 +1,34 @@
-package ca.cal.tp1.modele.document;
+package ca.cal.tp1.modele;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-public class Cd extends Document{
-    private String director;
+public class Dvd extends Document{
+    private String artiste;
     private int duree;
     private String genre;
-    private final int dureeEmpruntSem = 2;
+    private final int dureeEmpruntSem = 1;
 
-    public void savePreparedStatement (PreparedStatement ps) throws SQLException {
-        ps.setString(5, director);
+    @Override
+    public void savePreparedStatement(PreparedStatement ps) throws SQLException {
+        ps.setString(5, artiste);
         ps.setInt(6, duree);
         ps.setString(7, genre);
     }
-
-    public Cd(long id, String titre, LocalDate anneePublication, int nombreExemplaire, String director, int duree, String genre) {
+    public Dvd(long id, String titre, LocalDate anneePublication, int nombreExemplaire, String artiste, int duree, String genre) {
         super(id, titre, anneePublication, nombreExemplaire);
-        this.director = director;
+        this.artiste = artiste;
         this.duree = duree;
         this.genre = genre;
     }
 
-    public int getDuree() {
-        return duree;
+    public String getArtiste() {
+        return artiste;
     }
 
-    public String getDirector() {
-        return director;
+    public int getDuree() {
+        return duree;
     }
 
     public String getGenre() {
@@ -41,12 +41,12 @@ public class Cd extends Document{
 
     @Override
     public String toString() {
-        return "Cd{" +
+        return "Dvd{" +
                 "id=" + getId() +
                 ", titre='" + getTitre() + '\'' +
                 ", anneePublication=" + getAnneePublication() +
                 ", nombreExemplaire=" + getNombreExemplaire() +
-                "director='" + director + '\'' +
+                "artiste='" + artiste + '\'' +
                 ", duree=" + duree +
                 ", genre='" + genre + '\'' +
                 ", dureeEmpruntSem=" + dureeEmpruntSem +

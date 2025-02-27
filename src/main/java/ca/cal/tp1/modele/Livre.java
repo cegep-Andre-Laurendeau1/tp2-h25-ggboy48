@@ -1,4 +1,4 @@
-package ca.cal.tp1.modele.document;
+package ca.cal.tp1.modele;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

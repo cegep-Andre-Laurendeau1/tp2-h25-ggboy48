@@ -1,13 +1,10 @@
 package ca.cal.tp1;
 
-import ca.cal.tp1.persistance.CdRepository;
-import ca.cal.tp1.persistance.DvdRepository;
-import ca.cal.tp1.persistance.LivreRepository;
-import ca.cal.tp1.service.document.CdService;
-import ca.cal.tp1.service.document.DvdService;
-import ca.cal.tp1.service.document.LivreService;
+import ca.cal.tp1.persistance.CdRepositoryJDBC;
+import ca.cal.tp1.persistance.DvdRepositoryJDBC;
+import ca.cal.tp1.persistance.LivreRepositoryJDBC;
+import ca.cal.tp1.service.EmprunteurService;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.sql.SQLException;
 
@@ -16,21 +13,18 @@ public class Main {
         // Votre script qui utilise votre API ici
         TcpServer.startTcpServer();
 
+        EmprunteurService emprunteurServiceJDBC = new EmprunteurService(new CdRepositoryJDBC(), new DvdRepositoryJDBC(), new LivreRepositoryJDBC());
 
-        LivreService livreService = new LivreService(new LivreRepository());
-        CdService cdService = new CdService(new CdRepository());
-        DvdService dvdService = new DvdService(new DvdRepository());
 
-        LocalDate jour = LocalDate.of(2020, 1, 1);
+        emprunteurServiceJDBC.ajouterLivre(1,"titre", LocalDate.of(2021, 1, 1),1,"ISBN","auteur","editeur",1);
+        System.out.println(emprunteurServiceJDBC.getLivre(1));
 
-        livreService.ajouteLivre(1,"titre", jour,1,"ISBN","auteur","editeur",1);
-        System.out.println(livreService.getLivre(1));
+        emprunteurServiceJDBC.ajouterCd(1,"titre",LocalDate.of(2022, 1, 1),1,"artiste",1, "genre");
+        System.out.println(emprunteurServiceJDBC.getCd(1));
 
-        cdService.ajouteCd(1,"titre",jour,1,"artiste",1, "genre");
-        System.out.println(cdService.getCd(1));
+        emprunteurServiceJDBC.ajouterDvd(1,"titre",LocalDate.of(2023, 1, 1),1,"directeur", 1, "genre");
+        System.out.println(emprunteurServiceJDBC.getDvd(1));
 
-        dvdService.ajouteDvd(1,"titre",jour,1,"directeur", 1, "genre");
-        System.out.println(dvdService.getDvd(1));
 
         Thread.currentThread().join();
     }
