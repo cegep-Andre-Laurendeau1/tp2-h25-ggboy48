@@ -1,13 +1,11 @@
 package ca.cal.tp1.service;
 
 import ca.cal.tp1.DTO.CdDTO;
-import ca.cal.tp1.DTO.DocumentDTO;
 import ca.cal.tp1.DTO.DvdDTO;
 import ca.cal.tp1.DTO.LivreDTO;
 import ca.cal.tp1.persistance.InterfaceRepository;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class EmprunteurService {
     private InterfaceRepository<CdDTO> cdRepository;
