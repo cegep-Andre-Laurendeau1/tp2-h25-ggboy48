@@ -1,13 +1,14 @@
 package ca.cal.tp1.persistance;
 
 import ca.cal.tp1.DTO.LivreDTO;
+import ca.cal.tp1.modele.Livre;
 
 import java.sql.PreparedStatement;
 
-public class LivreRepositoryJDBC extends RepositoryParent implements InterfaceRepository<LivreDTO> {
+public class LivreRepositoryJDBC extends RepositoryParent implements InterfaceRepository<Livre> {
 
     @Override
-    public void save(LivreDTO livre) {
+    public void save(Livre livre) {
         String sql = "INSERT INTO livre (id, titre, anneePublication, nombreExemplaire, ISBN, auteur, editeur, nombrePages) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try(PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setLong(1, livre.getId());
@@ -25,13 +26,13 @@ public class LivreRepositoryJDBC extends RepositoryParent implements InterfaceRe
     }
 
     @Override
-    public LivreDTO get(Long id) {
+    public Livre get(Long id) {
         String sql = "SELECT * FROM livre WHERE id = ?";
         try(PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setLong(1, id);
             var result = ps.executeQuery();
             if(result.next()){
-                return new LivreDTO(
+                return new Livre(
                         result.getLong("id"),
                         result.getString("titre"),
                         result.getDate("anneePublication").toLocalDate(),

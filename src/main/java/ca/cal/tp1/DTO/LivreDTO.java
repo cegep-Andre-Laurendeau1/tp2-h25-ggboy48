@@ -1,5 +1,7 @@
 package ca.cal.tp1.DTO;
 
+import ca.cal.tp1.modele.Livre;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -17,6 +19,13 @@ public class LivreDTO extends DocumentDTO {
         this.auteur = auteur;
         this.editeur = editeur;
         this.nombrePages = nombrePages;
+    }
+    public LivreDTO(Livre livre){
+        super(livre.getId(), livre.getTitre(), livre.getAnneePublication(), livre.getNombreExemplaire());
+        this.ISBN = livre.getISBN();
+        this.auteur = livre.getAuteur();
+        this.editeur = livre.getEditeur();
+        this.nombrePages = livre.getNombrePages();
     }
 
     public String getISBN() {

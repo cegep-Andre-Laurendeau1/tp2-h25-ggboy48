@@ -11,13 +11,6 @@ public class Livre extends Document {
     private int nombrePages;
     private final int dureeEmpruntSem = 3;
 
-    @Override
-    public void savePreparedStatement(PreparedStatement ps) throws SQLException {
-        ps.setString(5, ISBN);
-        ps.setString(6, auteur);
-        ps.setString(7, editeur);
-        ps.setInt(8, nombrePages);
-    }
     public Livre(long id, String titre, LocalDate anneePublication, int nombreExemplaire, String ISBN, String auteur, String editeur, int nombrePages) {
         super(id, titre, anneePublication, nombreExemplaire);
         this.ISBN = ISBN;

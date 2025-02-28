@@ -2,14 +2,15 @@ package ca.cal.tp1.persistance;
 
 
 import ca.cal.tp1.DTO.CdDTO;
+import ca.cal.tp1.modele.Cd;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class CdRepositoryJDBC extends RepositoryParent implements InterfaceRepository<CdDTO>{
+public class CdRepositoryJDBC extends RepositoryParent implements InterfaceRepository<Cd>{
 
     @Override
-    public void save(CdDTO cd) {
+    public void save(Cd cd) {
         String sql ="INSERT INTO cd (id, titre, anneePublication, nombreExemplaire, artiste, duree, genre) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try(PreparedStatement ps = conn.prepareStatement(sql)){
@@ -27,13 +28,13 @@ public class CdRepositoryJDBC extends RepositoryParent implements InterfaceRepos
     }
 
     @Override
-    public CdDTO get(Long id) {
+    public Cd get(Long id) {
         String sql = "SELECT * FROM cd WHERE id = ?";
         try(PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setLong(1, id);
             var result = ps.executeQuery();
             if(result.next()){
-                return new CdDTO(
+                return new Cd(
                         result.getLong("id"),
                         result.getString("titre"),
                         result.getDate("anneePublication").toLocalDate(),

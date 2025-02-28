@@ -1,8 +1,12 @@
 package ca.cal.tp1.DTO;
 
+import ca.cal.tp1.modele.Cd;
+import jakarta.persistence.Entity;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
+
 
 public class CdDTO extends DocumentDTO {
     private String artiste;
@@ -15,6 +19,12 @@ public class CdDTO extends DocumentDTO {
         this.artiste = artiste;
         this.duree = duree;
         this.genre = genre;
+    }
+    public CdDTO(Cd cd){
+        super(cd.getId(), cd.getTitre(), cd.getAnneePublication(), cd.getNombreExemplaire());
+        this.artiste = cd.getArtiste();
+        this.duree = cd.getDuree();
+        this.genre = cd.getGenre();
     }
 
     public int getDuree() {

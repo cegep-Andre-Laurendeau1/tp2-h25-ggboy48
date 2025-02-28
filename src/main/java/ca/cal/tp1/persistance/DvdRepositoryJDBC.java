@@ -1,13 +1,14 @@
 package ca.cal.tp1.persistance;
 
 import ca.cal.tp1.DTO.DvdDTO;
+import ca.cal.tp1.modele.Dvd;
 
 import java.sql.PreparedStatement;
 
-public class DvdRepositoryJDBC extends RepositoryParent implements InterfaceRepository<DvdDTO> {
+public class DvdRepositoryJDBC extends RepositoryParent implements InterfaceRepository<Dvd> {
 
     @Override
-    public void save(DvdDTO dvd) {
+    public void save(Dvd dvd) {
         String sql = "INSERT INTO dvd (id, titre, anneePublication, nombreExemplaire, directeur, duree, genre) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try(PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setLong(1, dvd.getId());
@@ -24,13 +25,13 @@ public class DvdRepositoryJDBC extends RepositoryParent implements InterfaceRepo
     }
 
     @Override
-    public DvdDTO get(Long id) {
+    public Dvd get(Long id) {
         String sql = "SELECT * FROM dvd WHERE id = ?";
         try(PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setLong(1, id);
             var result = ps.executeQuery();
             if(result.next()){
-                return new DvdDTO(
+                return new Dvd(
                         result.getLong("id"),
                         result.getString("titre"),
                         result.getDate("anneePublication").toLocalDate(),

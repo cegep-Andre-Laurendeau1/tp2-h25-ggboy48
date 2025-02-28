@@ -5,20 +5,14 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class Cd extends Document{
-    private String director;
+    private String artiste;
     private int duree;
     private String genre;
     private final int dureeEmpruntSem = 2;
 
-    public void savePreparedStatement (PreparedStatement ps) throws SQLException {
-        ps.setString(5, director);
-        ps.setInt(6, duree);
-        ps.setString(7, genre);
-    }
-
-    public Cd(long id, String titre, LocalDate anneePublication, int nombreExemplaire, String director, int duree, String genre) {
+    public Cd(long id, String titre, LocalDate anneePublication, int nombreExemplaire, String artiste, int duree, String genre) {
         super(id, titre, anneePublication, nombreExemplaire);
-        this.director = director;
+        this.artiste = artiste;
         this.duree = duree;
         this.genre = genre;
     }
@@ -27,9 +21,6 @@ public class Cd extends Document{
         return duree;
     }
 
-    public String getDirector() {
-        return director;
-    }
 
     public String getGenre() {
         return genre;
@@ -39,6 +30,10 @@ public class Cd extends Document{
         return dureeEmpruntSem;
     }
 
+    public String getArtiste() {
+        return artiste;
+    }
+
     @Override
     public String toString() {
         return "Cd{" +
@@ -46,10 +41,11 @@ public class Cd extends Document{
                 ", titre='" + getTitre() + '\'' +
                 ", anneePublication=" + getAnneePublication() +
                 ", nombreExemplaire=" + getNombreExemplaire() +
-                "director='" + director + '\'' +
+                "artiste='" + artiste + '\'' +
                 ", duree=" + duree +
                 ", genre='" + genre + '\'' +
                 ", dureeEmpruntSem=" + dureeEmpruntSem +
                 '}';
     }
+
 }

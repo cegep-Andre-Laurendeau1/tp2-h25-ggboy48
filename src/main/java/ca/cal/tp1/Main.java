@@ -1,8 +1,6 @@
 package ca.cal.tp1;
 
-import ca.cal.tp1.persistance.CdRepositoryJDBC;
-import ca.cal.tp1.persistance.DvdRepositoryJDBC;
-import ca.cal.tp1.persistance.LivreRepositoryJDBC;
+import ca.cal.tp1.persistance.*;
 import ca.cal.tp1.service.EmprunteurService;
 
 import java.time.LocalDate;
@@ -19,33 +17,33 @@ public class Main {
 
 
         emprunteurServiceJDBC.saveLivre(1,"titre JDBC", LocalDate.of(2021, 1, 1),1,"ISBN","auteur","editeur",1);
-        System.out.println(emprunteurServiceJDBC.getLivre(1));
+        System.out.println(emprunteurServiceJDBC.getLivre(1L));
 
         emprunteurServiceJDBC.saveCd(1,"titre JDBC",LocalDate.of(2022, 1, 1),1,"artiste",1, "genre");
-        System.out.println(emprunteurServiceJDBC.getCd(1));
+        System.out.println(emprunteurServiceJDBC.getCd(1L));
 
         emprunteurServiceJDBC.saveDvd(1,"titre JDBC",LocalDate.of(2023, 1, 1),1,"directeur", 1, "genre");
-        System.out.println(emprunteurServiceJDBC.getDvd(1));
+        System.out.println(emprunteurServiceJDBC.getDvd(1L));
 
 
 
         emprunteurServiceJPA.saveLivre(2,"titre JPA", LocalDate.of(2021, 1, 1),1,"ISBN","auteur","editeur",1);
-        System.out.println(emprunteurServiceJPA.getLivre(2));
+        System.out.println(emprunteurServiceJPA.getLivre(2L));
 
         emprunteurServiceJPA.saveCd(2,"titre JPA",LocalDate.of(2022, 1, 1),1,"artiste",1, "genre");
-        System.out.println(emprunteurServiceJPA.getCd(2));
+        System.out.println(emprunteurServiceJPA.getCd(2L));
 
         emprunteurServiceJPA.saveDvd(2,"titre JPA",LocalDate.of(2023, 1, 1),1,"directeur", 1, "genre");
-        System.out.println(emprunteurServiceJPA.getDvd(2));
+        System.out.println(emprunteurServiceJPA.getDvd(2L));
 
-        emprunteurServiceJPA.ajouterClient();
-        emprunteurServiceJPA.rechercheLivre();
-        emprunteurServiceJPA.rechercheCd();
-        emprunteurServiceJPA.rechercheDvd();
-        emprunteurServiceJPA.emprunterLivre();
-        emprunteurServiceJPA.emprunterCd();
-        emprunteurServiceJPA.emprunterDvd();
-        emprunteurServiceJPA.getDocumentsEmprunteur();
+//        emprunteurServiceJPA.ajouterClient();
+//        emprunteurServiceJPA.rechercheLivre();
+//        emprunteurServiceJPA.rechercheCd();
+//        emprunteurServiceJPA.rechercheDvd();
+//        emprunteurServiceJPA.emprunterLivre();
+//        emprunteurServiceJPA.emprunterCd();
+//        emprunteurServiceJPA.emprunterDvd();
+//        emprunteurServiceJPA.getDocumentsEmprunteur();
 
 
 

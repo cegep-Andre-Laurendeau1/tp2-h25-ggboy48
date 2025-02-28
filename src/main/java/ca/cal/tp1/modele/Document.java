@@ -15,7 +15,6 @@ public abstract class Document {
         this.anneePublication = anneePublication;
         this.nombreExemplaire = nombreExemplaire;
     }
-    public abstract void savePreparedStatement(PreparedStatement ps) throws SQLException;
     public long getId() {
         return documentID;
     }

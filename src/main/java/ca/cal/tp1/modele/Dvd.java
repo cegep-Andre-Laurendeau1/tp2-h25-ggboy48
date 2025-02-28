@@ -5,26 +5,20 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class Dvd extends Document{
-    private String artiste;
+    private String directeur;
     private int duree;
     private String genre;
     private final int dureeEmpruntSem = 1;
 
-    @Override
-    public void savePreparedStatement(PreparedStatement ps) throws SQLException {
-        ps.setString(5, artiste);
-        ps.setInt(6, duree);
-        ps.setString(7, genre);
-    }
-    public Dvd(long id, String titre, LocalDate anneePublication, int nombreExemplaire, String artiste, int duree, String genre) {
+    public Dvd(long id, String titre, LocalDate anneePublication, int nombreExemplaire, String directeur, int duree, String genre) {
         super(id, titre, anneePublication, nombreExemplaire);
-        this.artiste = artiste;
+        this.directeur = directeur;
         this.duree = duree;
         this.genre = genre;
     }
 
-    public String getArtiste() {
-        return artiste;
+    public String getDirecteur() {
+        return directeur;
     }
 
     public int getDuree() {
@@ -46,7 +40,7 @@ public class Dvd extends Document{
                 ", titre='" + getTitre() + '\'' +
                 ", anneePublication=" + getAnneePublication() +
                 ", nombreExemplaire=" + getNombreExemplaire() +
-                "artiste='" + artiste + '\'' +
+                "directeur='" + directeur + '\'' +
                 ", duree=" + duree +
                 ", genre='" + genre + '\'' +
                 ", dureeEmpruntSem=" + dureeEmpruntSem +

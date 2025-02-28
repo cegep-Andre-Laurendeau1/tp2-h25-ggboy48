@@ -1,5 +1,7 @@
 package ca.cal.tp1.DTO;
 
+import ca.cal.tp1.modele.Dvd;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -14,6 +16,13 @@ public class DvdDTO extends DocumentDTO {
         this.directeur = directeur;
         this.duree = duree;
         this.genre = genre;
+    }
+
+    public DvdDTO(Dvd dvd){
+        super(dvd.getId(), dvd.getTitre(), dvd.getAnneePublication(), dvd.getNombreExemplaire());
+        this.directeur = dvd.getDirecteur();
+        this.duree = dvd.getDuree();
+        this.genre = dvd.getGenre();
     }
 
     public String getDirecteur() {
