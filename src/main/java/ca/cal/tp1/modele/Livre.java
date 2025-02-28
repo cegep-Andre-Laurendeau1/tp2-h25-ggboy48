@@ -1,8 +1,12 @@
 package ca.cal.tp1.modele;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import jakarta.persistence.Entity;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDate;
+
+@Entity
+@NoArgsConstructor
 
 public class Livre extends Document {
     private String ISBN;
@@ -11,13 +15,14 @@ public class Livre extends Document {
     private int nombrePages;
     private final int dureeEmpruntSem = 3;
 
-    public Livre(long id, String titre, LocalDate anneePublication, int nombreExemplaire, String ISBN, String auteur, String editeur, int nombrePages) {
+    public Livre(Long id, String titre, LocalDate anneePublication, int nombreExemplaire, String ISBN, String auteur, String editeur, int nombrePages) {
         super(id, titre, anneePublication, nombreExemplaire);
         this.ISBN = ISBN;
         this.auteur = auteur;
         this.editeur = editeur;
         this.nombrePages = nombrePages;
     }
+
 
     public String getISBN() {
         return ISBN;

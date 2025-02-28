@@ -10,7 +10,7 @@ public class Dvd extends Document{
     private String genre;
     private final int dureeEmpruntSem = 1;
 
-    public Dvd(long id, String titre, LocalDate anneePublication, int nombreExemplaire, String directeur, int duree, String genre) {
+    public Dvd(Long id, String titre, LocalDate anneePublication, int nombreExemplaire, String directeur, int duree, String genre) {
         super(id, titre, anneePublication, nombreExemplaire);
         this.directeur = directeur;
         this.duree = duree;

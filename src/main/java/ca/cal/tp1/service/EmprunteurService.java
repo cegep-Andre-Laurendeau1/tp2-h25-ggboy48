@@ -32,15 +32,15 @@ public class EmprunteurService {
     }
 
     //TODO fait une recherche à partire de l'id et s'il n'existe pas, ajoute le courant, sinon s'il y en a un alors on ajoute le nombre d'exemplaire a l'exemplaire de la bd
-    public void saveLivre(int id, String titre, LocalDate anneePublication, int nombreExemplaire, String ISBN, String auteur, String editeur, int nombrePages) {
+    public void saveLivre(Long id, String titre, LocalDate anneePublication, int nombreExemplaire, String ISBN, String auteur, String editeur, int nombrePages) {
         livreRepository.save(new Livre(id, titre, anneePublication, nombreExemplaire, ISBN, auteur, editeur, nombrePages));
         //TODO recherche de l'id dans la base de donnée pour ne pas avoir de doublon et s'il y en a de ajouter le nombre d'exemplaire au exemplaire de la bd
     }
-    public void saveDvd(int id, String titre, LocalDate anneePublication, int nombreExemplaire, String directeur, int duree, String genre) {
+    public void saveDvd(Long id, String titre, LocalDate anneePublication, int nombreExemplaire, String directeur, int duree, String genre) {
         dvdRepository.save(new Dvd(id, titre, anneePublication, nombreExemplaire, directeur, duree, genre));
         //TODO recherche de l'id dans la base de donnée pour ne pas avoir de doublon et s'il y en a de ajouter le nombre d'exemplaire au exemplaire de la bd
     }
-    public void saveCd(int id, String titre, LocalDate anneePublication, int nombreExemplaire, String artiste, int duree, String genre) {
+    public void saveCd(Long id, String titre, LocalDate anneePublication, int nombreExemplaire, String artiste, int duree, String genre) {
         cdRepository.save(new Cd(id, titre, anneePublication, nombreExemplaire, artiste, duree, genre));
         //TODO recherche de l'id dans la base de donnée pour ne pas avoir de doublon et s'il y en a de ajouter le nombre d'exemplaire au exemplaire de la bd
     }

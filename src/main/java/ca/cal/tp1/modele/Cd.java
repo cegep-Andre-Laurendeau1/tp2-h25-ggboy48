@@ -1,8 +1,7 @@
 package ca.cal.tp1.modele;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.time.LocalDate;
+
 
 public class Cd extends Document{
     private String artiste;
@@ -10,7 +9,7 @@ public class Cd extends Document{
     private String genre;
     private final int dureeEmpruntSem = 2;
 
-    public Cd(long id, String titre, LocalDate anneePublication, int nombreExemplaire, String artiste, int duree, String genre) {
+    public Cd(Long id, String titre, LocalDate anneePublication, int nombreExemplaire, String artiste, int duree, String genre) {
         super(id, titre, anneePublication, nombreExemplaire);
         this.artiste = artiste;
         this.duree = duree;
