@@ -2,8 +2,6 @@ package ca.cal.tp1.DTO;
 
 import ca.cal.tp1.modele.Dvd;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class DvdDTO extends DocumentDTO {
@@ -11,7 +9,7 @@ public class DvdDTO extends DocumentDTO {
     private int duree;
     private String genre;
     private final int dureeEmpruntSem = 1;
-    public DvdDTO(long id, String titre, LocalDate anneePublication, int nombreExemplaire, String directeur, int duree, String genre) {
+    public DvdDTO(Long id, String titre, LocalDate anneePublication, int nombreExemplaire, String directeur, int duree, String genre) {
         super(id, titre, anneePublication, nombreExemplaire);
         this.directeur = directeur;
         this.duree = duree;

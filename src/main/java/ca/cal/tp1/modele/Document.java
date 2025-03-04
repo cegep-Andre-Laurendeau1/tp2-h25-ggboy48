@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+@Entity
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Document {
@@ -18,13 +19,12 @@ public abstract class Document {
     private String titre;
     private LocalDate anneePublication;
     private int nombreExemplaire;
-    public Document(Long id, String titre, LocalDate anneePublication, int nombreExemplaire){
-        this.id = id;
+    public Document( String titre, LocalDate anneePublication, int nombreExemplaire){
         this.titre = titre;
         this.anneePublication = anneePublication;
         this.nombreExemplaire = nombreExemplaire;
     }
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

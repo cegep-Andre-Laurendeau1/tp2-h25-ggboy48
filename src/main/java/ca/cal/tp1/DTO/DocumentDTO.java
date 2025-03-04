@@ -1,23 +1,21 @@
 package ca.cal.tp1.DTO;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.time.LocalDate;
 
 
 public abstract class DocumentDTO {
-    private long documentID;
+    private Long id;
     private String titre;
     private LocalDate anneePublication;
     private int nombreExemplaire;
-    public DocumentDTO(long id, String titre, LocalDate anneePublication, int nombreExemplaire){
-        this.documentID = id;
+    public DocumentDTO(Long id, String titre, LocalDate anneePublication, int nombreExemplaire){
+        this.id = id;
         this.titre = titre;
         this.anneePublication = anneePublication;
         this.nombreExemplaire = nombreExemplaire;
     }
     public long getId() {
-        return documentID;
+        return id;
     }
 
     public String getTitre() {
@@ -32,8 +30,8 @@ public abstract class DocumentDTO {
         return nombreExemplaire;
     }
 
-    public void setDocumentID(long documentID) {
-        this.documentID = documentID;
+    public void setDocumentID(Long id) {
+        this.id = id;
     }
 
     public void setTitre(String titre) {
@@ -51,7 +49,7 @@ public abstract class DocumentDTO {
     @Override
     public String toString() {
         return "Document{" +
-                "documentID=" + documentID +
+                "documentID=" + id +
                 ", titre='" + titre + '\'' +
                 ", anneePublication=" + anneePublication +
                 ", nombreExemplaire=" + nombreExemplaire +

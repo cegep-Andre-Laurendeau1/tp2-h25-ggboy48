@@ -1,10 +1,7 @@
 package ca.cal.tp1.DTO;
 
 import ca.cal.tp1.modele.Cd;
-import jakarta.persistence.Entity;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.time.LocalDate;
 
 
@@ -14,7 +11,7 @@ public class CdDTO extends DocumentDTO {
     private String genre;
     private final int dureeEmpruntSem = 2;
 
-    public CdDTO(long id, String titre, LocalDate anneePublication, int nombreExemplaire, String artiste, int duree, String genre) {
+    public CdDTO(Long id, String titre, LocalDate anneePublication, int nombreExemplaire, String artiste, int duree, String genre) {
         super(id, titre, anneePublication, nombreExemplaire);
         this.artiste = artiste;
         this.duree = duree;
