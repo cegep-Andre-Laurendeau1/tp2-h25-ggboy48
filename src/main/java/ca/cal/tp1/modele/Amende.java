@@ -1,16 +1,28 @@
 package ca.cal.tp1.modele;
 
-import java.sql.Date;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
 public class Amende {
-    private int fineID;
-    private double montant = 0.0;
-    private Date dateCreation;
+    @Id
+    @GeneratedValue
+    private Long id;
+    private double montant;
+    private LocalDate dateCreation;
     private boolean status;
-    public double calculMontant(double valeur) {
-        return montant + valeur;
-    }
-        public void updateStatus(boolean status){
-            this.status = status;
-        }
+
+    @ManyToOne
+    private Emprunteur emprunteur;
 }

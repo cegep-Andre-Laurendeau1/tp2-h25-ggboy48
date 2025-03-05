@@ -1,41 +1,52 @@
 package ca.cal.tp1.modele;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import java.sql.Date;
 import java.time.LocalDate;
 
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class EmpruntDetails {
-    private int lineItemID;
-    private Date dateRetourPrevue;
-    private Date dateRetourActuelle;
+    @Id
+    @GeneratedValue
+    private Long id;
+    private LocalDate dateRetourPrevue;
+    private LocalDate dateRetourActuelle;
     private String status;
 
-    public EmpruntDetails(int lineItemID, Date dateRetourPrevue, Date dateRetourActuelle, String status) {
-        this.lineItemID = lineItemID;
+    @ManyToOne
+    private Emprunt emprunt;
+
+    @ManyToOne
+    private Document document;
+
+    public EmpruntDetails(LocalDate dateRetourPrevue, LocalDate dateRetourActuelle, String status) {
         this.dateRetourPrevue = dateRetourPrevue;
         this.dateRetourActuelle = dateRetourActuelle;
         this.status = status;
     }
-    public EmpruntDetails(int lineItemID, Date dateRetourPrevue, String status) {
-        this.lineItemID = lineItemID;
+    public EmpruntDetails( LocalDate dateRetourPrevue, String status) {
         this.dateRetourPrevue = dateRetourPrevue;
         this.status = status;
     }
-    public boolean isEnRetard(){
-        if(dateRetourActuelle != null) return dateRetourPrevue.getTime()>dateRetourActuelle.getTime();
-        LocalDate dateAujourdhui = LocalDate.now();
-        Date dateAujourdhuiSQL = Date.valueOf(dateAujourdhui);
-        return dateRetourPrevue.getTime() > dateAujourdhuiSQL.getTime();
+
+
+    public Long getId() {
+        return id;
     }
 
-    public int getLineItemID() {
-        return lineItemID;
-    }
-
-    public Date getDateRetourPrevue() {
+    public LocalDate getDateRetourPrevue() {
         return dateRetourPrevue;
     }
 
-    public Date getDateRetourActuelle() {
+    public LocalDate getDateRetourActuelle() {
         return dateRetourActuelle;
     }
 

@@ -3,17 +3,18 @@ package ca.cal.tp1.service;
 import ca.cal.tp1.DTO.CdDTO;
 import ca.cal.tp1.DTO.DvdDTO;
 import ca.cal.tp1.DTO.LivreDTO;
-import ca.cal.tp1.modele.Cd;
-import ca.cal.tp1.modele.Dvd;
-import ca.cal.tp1.modele.Livre;
+import ca.cal.tp1.modele.*;
 import ca.cal.tp1.persistance.InterfaceRepository;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EmprunteurService {
     private InterfaceRepository<Cd> cdRepository;
     private InterfaceRepository<Dvd> dvdRepository;
     private InterfaceRepository<Livre> livreRepository;
+    private InterfaceRepository<Emprunteur> emprunteurRepository;
 
     public EmprunteurService(InterfaceRepository<Cd> cdRepository, InterfaceRepository<Dvd> dvdRepository, InterfaceRepository<Livre> livreRepository) {
         this.cdRepository = cdRepository;
@@ -31,23 +32,22 @@ public class EmprunteurService {
         return cdRepository.get(id);
     }
 
-    //TODO fait une recherche à partire de l'id et s'il n'existe pas, ajoute le courant, sinon s'il y en a un alors on ajoute le nombre d'exemplaire a l'exemplaire de la bd
     public void saveLivre(String titre, LocalDate anneePublication, int nombreExemplaire, String ISBN, String auteur, String editeur, int nombrePages) {
         livreRepository.save(new Livre(titre, anneePublication, nombreExemplaire, ISBN, auteur, editeur, nombrePages));
-        //TODO recherche de l'id dans la base de donnée pour ne pas avoir de doublon et s'il y en a de ajouter le nombre d'exemplaire au exemplaire de la bd
     }
     public void saveDvd(String titre, LocalDate anneePublication, int nombreExemplaire, String directeur, int duree, String genre) {
         dvdRepository.save(new Dvd(titre, anneePublication, nombreExemplaire, directeur, duree, genre));
-        //TODO recherche de l'id dans la base de donnée pour ne pas avoir de doublon et s'il y en a de ajouter le nombre d'exemplaire au exemplaire de la bd
     }
     public void saveCd(String titre, LocalDate anneePublication, int nombreExemplaire, String artiste, int duree, String genre) {
         cdRepository.save(new Cd(titre, anneePublication, nombreExemplaire, artiste, duree, genre));
-        //TODO recherche de l'id dans la base de donnée pour ne pas avoir de doublon et s'il y en a de ajouter le nombre d'exemplaire au exemplaire de la bd
     }
 
 
-    public void ajouterClient() {
-        // TODO
+    public void ajouterEmprunteur(String nom, String email, String numTelephone) {
+        emprunteurRepository.save(new Emprunteur(nom, email, numTelephone));
+    }
+    public void saveExemplaire(int nmbreExemplaire, Long idDocument){
+
     }
     public void rechercheLivre() {
         // TODO rappelle que le titre ne doit pas être exacte
@@ -71,4 +71,13 @@ public class EmprunteurService {
         // TODO pense a ce que tu doit faire
     }
 
+    public List<EmpruntDetails> getItems(){
+        List<EmpruntDetails> emprunts = new ArrayList<>();
+        return emprunts;
+    }
+//    public boolean isEnRetard(Long id) {
+//        if (dateRetourActuelle != null) return dateRetourPrevue.isAfter(dateRetourActuelle);
+//        LocalDate dateAujourdhui = LocalDate.now();
+//        return dateRetourPrevue.isAfter(dateAujourdhui);
+//    }
 }
