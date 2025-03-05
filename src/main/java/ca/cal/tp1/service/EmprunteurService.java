@@ -16,10 +16,11 @@ public class EmprunteurService {
     private InterfaceRepository<Livre> livreRepository;
     private InterfaceRepository<Emprunteur> emprunteurRepository;
 
-    public EmprunteurService(InterfaceRepository<Cd> cdRepository, InterfaceRepository<Dvd> dvdRepository, InterfaceRepository<Livre> livreRepository) {
+    public EmprunteurService(InterfaceRepository<Cd> cdRepository, InterfaceRepository<Dvd> dvdRepository, InterfaceRepository<Livre> livreRepository, InterfaceRepository<Emprunteur> emprunteurRepository) {
         this.cdRepository = cdRepository;
         this.dvdRepository = dvdRepository;
         this.livreRepository = livreRepository;
+        this.emprunteurRepository = emprunteurRepository;
     }
 
     public Livre getLivre(Long id) {

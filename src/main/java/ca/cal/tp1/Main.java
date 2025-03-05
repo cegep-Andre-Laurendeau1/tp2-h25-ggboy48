@@ -12,7 +12,7 @@ public class Main {
         TcpServer.startTcpServer();
 
         //EmprunteurService emprunteurServiceJDBC = new EmprunteurService(new CdRepositoryJDBC(), new DvdRepositoryJDBC(), new LivreRepositoryJDBC());
-        EmprunteurService emprunteurServiceJPA = new EmprunteurService(new CdRepositoryJPA(), new DvdRepositoryJPA(), new LivreRepositoryJPA());
+        EmprunteurService emprunteurServiceJPA = new EmprunteurService(new CdRepositoryJPA(), new DvdRepositoryJPA(), new LivreRepositoryJPA(), new EmprunteurRepositoryJPA());
 
 
 
@@ -36,7 +36,7 @@ public class Main {
         emprunteurServiceJPA.saveDvd("titre JPA",LocalDate.of(2023, 1, 1),1,"directeur", 1, "genre");
         System.out.println(emprunteurServiceJPA.getDvd(52L));
 
-//        emprunteurServiceJPA.ajouterClient();
+        emprunteurServiceJPA.ajouterEmprunteur("nom", "email", "numTelephone");
 //        emprunteurServiceJPA.rechercheLivre();
 //        emprunteurServiceJPA.rechercheCd();
 //        emprunteurServiceJPA.rechercheDvd();
