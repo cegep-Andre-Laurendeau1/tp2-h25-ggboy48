@@ -4,8 +4,10 @@ import ca.cal.tp1.DTO.CdDTO;
 import ca.cal.tp1.DTO.DvdDTO;
 import ca.cal.tp1.DTO.LivreDTO;
 import ca.cal.tp1.modele.*;
+import ca.cal.tp1.persistance.DocumentRepositoryJPA;
 import ca.cal.tp1.persistance.InterfaceRepository;
 
+import javax.print.Doc;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,7 @@ public class EmprunteurService {
     private InterfaceRepository<Dvd> dvdRepository;
     private InterfaceRepository<Livre> livreRepository;
     private InterfaceRepository<Emprunteur> emprunteurRepository;
+    private InterfaceRepository<Document> documentRepository = new DocumentRepositoryJPA();
 
     public EmprunteurService(InterfaceRepository<Cd> cdRepository, InterfaceRepository<Dvd> dvdRepository, InterfaceRepository<Livre> livreRepository, InterfaceRepository<Emprunteur> emprunteurRepository) {
         this.cdRepository = cdRepository;
@@ -23,32 +26,29 @@ public class EmprunteurService {
         this.emprunteurRepository = emprunteurRepository;
     }
 
-    public Livre getLivre(Long id) {
-        return livreRepository.get(id);
-    }
-    public Dvd getDvd(Long id) {
-        return dvdRepository.get(id);
-    }
-    public Cd getCd(Long id) {
-        return cdRepository.get(id);
+    public Document getDocument(Long id){
+        return documentRepository.get(id);
     }
 
     public void saveLivre(String titre, LocalDate anneePublication, int nombreExemplaire, String ISBN, String auteur, String editeur, int nombrePages) {
-        livreRepository.save(new Livre(titre, anneePublication, nombreExemplaire, ISBN, auteur, editeur, nombrePages));
+        documentRepository.save(new Livre(titre, anneePublication, nombreExemplaire, ISBN, auteur, editeur, nombrePages));
     }
     public void saveDvd(String titre, LocalDate anneePublication, int nombreExemplaire, String directeur, int duree, String genre) {
-        dvdRepository.save(new Dvd(titre, anneePublication, nombreExemplaire, directeur, duree, genre));
+        documentRepository.save(new Dvd(titre, anneePublication, nombreExemplaire, directeur, duree, genre));
     }
     public void saveCd(String titre, LocalDate anneePublication, int nombreExemplaire, String artiste, int duree, String genre) {
-        cdRepository.save(new Cd(titre, anneePublication, nombreExemplaire, artiste, duree, genre));
+        documentRepository.save(new Cd(titre, anneePublication, nombreExemplaire, artiste, duree, genre));
     }
 
 
     public void ajouterEmprunteur(String nom, String email, String numTelephone) {
         emprunteurRepository.save(new Emprunteur(nom, email, numTelephone));
     }
-    public void saveExemplaire(int nmbreExemplaire, Long idDocument){
 
+    public void saveExemplaire(int nmbreExemplaire, Long idDocument){
+        Document document = documentRepository.get(idDocument);
+        document.setNombreExemplaire(nmbreExemplaire);
+        documentRepository.save(document);
     }
     public void rechercheLivre() {
         // TODO rappelle que le titre ne doit pas être exacte

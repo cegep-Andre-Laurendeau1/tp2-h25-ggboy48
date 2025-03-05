@@ -39,6 +39,9 @@ public abstract class Document {
     public int getNombreExemplaire() {
         return nombreExemplaire;
     }
+    public void setNombreExemplaire(int nombreExemplaire) {
+        this.nombreExemplaire = nombreExemplaire;
+    }
 
     @Override
     public String toString() {

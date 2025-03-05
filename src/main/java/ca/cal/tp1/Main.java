@@ -28,15 +28,16 @@ public class Main {
 
 
         emprunteurServiceJPA.saveLivre("titre JPA", LocalDate.of(2021, 1, 1),1,"ISBN","auteur","editeur",1);
-        System.out.println(emprunteurServiceJPA.getLivre(1L));
+        System.out.println(emprunteurServiceJPA.getDocument(1L));
 
         emprunteurServiceJPA.saveCd("titre JPA",LocalDate.of(2022, 1, 1),1,"artiste",1, "genre");
-        System.out.println(emprunteurServiceJPA.getCd(2L));
+        System.out.println(emprunteurServiceJPA.getDocument(2L));
 
         emprunteurServiceJPA.saveDvd("titre JPA",LocalDate.of(2023, 1, 1),1,"directeur", 1, "genre");
-        System.out.println(emprunteurServiceJPA.getDvd(52L));
+        System.out.println(emprunteurServiceJPA.getDocument(3L));
 
         emprunteurServiceJPA.ajouterEmprunteur("nom", "email", "numTelephone");
+        emprunteurServiceJPA.saveExemplaire(30, 1L);
 //        emprunteurServiceJPA.rechercheLivre();
 //        emprunteurServiceJPA.rechercheCd();
 //        emprunteurServiceJPA.rechercheDvd();
@@ -46,6 +47,9 @@ public class Main {
 //        emprunteurServiceJPA.getDocumentsEmprunteur();
 
 
+        System.out.println(emprunteurServiceJPA.getDocument(1L));
+        System.out.println(emprunteurServiceJPA.getDocument(2L));
+        System.out.println(emprunteurServiceJPA.getDocument(3L));
 
         Thread.currentThread().join();
     }
