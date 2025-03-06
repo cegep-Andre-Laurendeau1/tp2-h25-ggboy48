@@ -41,7 +41,8 @@ public class DocumentRepositoryJPA implements InterfaceRepository<Document> {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
-        }    }
+        }
+    }
 
     @Override
     public void delete(Long id) {

@@ -42,7 +42,7 @@ public abstract class Document {
     public void setNombreExemplaire(int nombreExemplaire) {
         this.nombreExemplaire = nombreExemplaire;
     }
-
+    public abstract int getDureeEmpruntSem() ;
     @Override
     public String toString() {
         return "Document{" +

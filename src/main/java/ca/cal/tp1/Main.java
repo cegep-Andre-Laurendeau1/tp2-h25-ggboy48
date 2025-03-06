@@ -5,6 +5,8 @@ import ca.cal.tp1.service.EmprunteurService;
 
 import java.time.LocalDate;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, SQLException {
@@ -12,7 +14,7 @@ public class Main {
         TcpServer.startTcpServer();
 
         //EmprunteurService emprunteurServiceJDBC = new EmprunteurService(new CdRepositoryJDBC(), new DvdRepositoryJDBC(), new LivreRepositoryJDBC());
-        EmprunteurService emprunteurServiceJPA = new EmprunteurService(new EmprunteurRepositoryJPA(), new DocumentRepositoryJPA());
+        EmprunteurService emprunteurServiceJPA = new EmprunteurService(new EmprunteurRepositoryJPA(), new DocumentRepositoryJPA(), new EmpruntDetailsRepositoryJPA(), new EmpruntRepositoryJPA());
 
 
 
@@ -28,38 +30,40 @@ public class Main {
 
 
         emprunteurServiceJPA.saveLivre("titre JPA", LocalDate.of(2021, 1, 1),1,"ISBN","auteur","editeur",1);
-        System.out.println(emprunteurServiceJPA.getDocument(1L));
+//        System.out.println(emprunteurServiceJPA.getDocument(1L));
 
         emprunteurServiceJPA.saveCd("titre JPA",LocalDate.of(2021, 1, 1),1,"artiste",1, "genre");
-        System.out.println(emprunteurServiceJPA.getDocument(2L));
+//        System.out.println(emprunteurServiceJPA.getDocument(2L));
 
         emprunteurServiceJPA.saveDvd("titre JPA",LocalDate.of(2021, 1, 1),1,"directeur", 1, "genre");
-        System.out.println(emprunteurServiceJPA.getDocument(3L));
+//        System.out.println(emprunteurServiceJPA.getDocument(3L));
 
         emprunteurServiceJPA.saveDvd("TITLE JPA",LocalDate.of(2021, 1, 1),1,"directeur", 1, "genre");
-        System.out.println(emprunteurServiceJPA.getDocument(4L));
+//        System.out.println(emprunteurServiceJPA.getDocument(4L));
 
         emprunteurServiceJPA.saveDvd("title JPA",LocalDate.of(2021, 1, 1),1,"directeur", 1, "genre");
-        System.out.println(emprunteurServiceJPA.getDocument(5L));
+//        System.out.println(emprunteurServiceJPA.getDocument(5L));
 
         emprunteurServiceJPA.ajouterEmprunteur("nom", "email", "numTelephone");
         emprunteurServiceJPA.saveExemplaire(30, 1L);
         emprunteurServiceJPA.saveExemplaire(30, 2L);
 
-        emprunteurServiceJPA.rechercheDocument("titre", LocalDate.of(2021, 1, 1));
-        emprunteurServiceJPA.rechercheDocument("titre");
-        emprunteurServiceJPA.rechercheDocument("JPA");
-        emprunteurServiceJPA.rechercheDocument(LocalDate.of(2021, 1, 1));
+//        emprunteurServiceJPA.rechercheDocument("titre", LocalDate.of(2021, 1, 1));
+//        emprunteurServiceJPA.rechercheDocument("titre");
+//        emprunteurServiceJPA.rechercheDocument("JPA");
+//        emprunteurServiceJPA.rechercheDocument(LocalDate.of(2021, 1, 1));
 
-//        emprunteurServiceJPA.emprunterLivre();
-//        emprunteurServiceJPA.emprunterCd();
-//        emprunteurServiceJPA.emprunterDvd();
+        List<Long> list = new ArrayList<>();
+        list.add(1L);
+        list.add(2L);
+        emprunteurServiceJPA.emprunterDocument(list, 1L);
+
 //        emprunteurServiceJPA.getDocumentsEmprunteur();
 
 
-        System.out.println(emprunteurServiceJPA.getDocument(1L));
-        System.out.println(emprunteurServiceJPA.getDocument(2L));
-        System.out.println(emprunteurServiceJPA.getDocument(3L));
+//        System.out.println(emprunteurServiceJPA.getDocument(1L));
+//        System.out.println(emprunteurServiceJPA.getDocument(2L));
+//        System.out.println(emprunteurServiceJPA.getDocument(3L));
 
         Thread.currentThread().join();
     }

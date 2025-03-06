@@ -16,10 +16,14 @@ public class EmprunteurService {
 
     private InterfaceRepository<Emprunteur> emprunteurRepository;
     private InterfaceRepository<Document> documentRepository;
+    private InterfaceRepository<EmpruntDetails> empruntDetailsRepository;
+    private InterfaceRepository<Emprunt> empruntRepository;
 
-    public EmprunteurService( InterfaceRepository<Emprunteur> emprunteurRepository, InterfaceRepository<Document> documentRepository) {
+    public EmprunteurService( InterfaceRepository<Emprunteur> emprunteurRepository, InterfaceRepository<Document> documentRepository, InterfaceRepository<EmpruntDetails> empruntDetailsRepository, InterfaceRepository<Emprunt> empruntRepository) {
         this.emprunteurRepository = emprunteurRepository;
         this.documentRepository = documentRepository;
+        this.empruntDetailsRepository = empruntDetailsRepository;
+        this.empruntRepository = empruntRepository;
     }
 
     public Document getDocument(Long id){
@@ -71,16 +75,22 @@ public class EmprunteurService {
         System.out.println("\n \n");
     }
 
-    public void emprunterLivre() {
-        // TODO rappelle que s'il n'y a plus d'exemplaire, on ne peut pas emprunter
+    public void emprunterDocument(List<Long> idDocuments, Long idEmprunteur){
+        LocalDate aujourdhui = LocalDate.now();
+        List<EmpruntDetails> empruntDetails = new ArrayList<>();
+        Emprunt emprunt = new Emprunt(aujourdhui, "nouveau", empruntDetails, emprunteurRepository.get(idEmprunteur));
+
+        for (int i = 0; i < idDocuments.toArray().length; i++) {
+            Document documentCourant =  documentRepository.get(idDocuments.get(i));
+            if(documentCourant.getNombreExemplaire() <= 0)
+                return;
+            EmpruntDetails empruntDetailsCourant = new EmpruntDetails(aujourdhui.plusWeeks(documentCourant.getDureeEmpruntSem()), "nouveau", emprunt, documentCourant);
+            empruntDetails.add(empruntDetailsCourant);
+        }
+        empruntRepository.save(emprunt);
     }
-    public void emprunterCd() {
-        // TODO rappelle que s'il n'y a plus d'exemplaire, on ne peut pas emprunter
-    }
-    public void emprunterDvd() {
-        // TODO rappelle que s'il n'y a plus d'exemplaire, on ne peut pas emprunter
-    }
-    public void getDocumentsEmprunteur(long id){
+
+    public void getDocumentsEmprunteur(Long idEmprunteur){
         // TODO pense a ce que tu doit faire
     }
 
@@ -88,6 +98,8 @@ public class EmprunteurService {
         List<EmpruntDetails> emprunts = new ArrayList<>();
         return emprunts;
     }
+
+
 //    public boolean isEnRetard(Long id) {
 //        if (dateRetourActuelle != null) return dateRetourPrevue.isAfter(dateRetourActuelle);
 //        LocalDate dateAujourdhui = LocalDate.now();
