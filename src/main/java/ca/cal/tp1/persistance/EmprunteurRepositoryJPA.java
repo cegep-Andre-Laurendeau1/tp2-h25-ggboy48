@@ -8,6 +8,9 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 
+import java.time.LocalDate;
+import java.util.List;
+
 public class EmprunteurRepositoryJPA implements InterfaceRepository<Emprunteur> {
     private final EntityManagerFactory entityManagerFactory=
             Persistence.createEntityManagerFactory("orders.pu");
@@ -35,7 +38,24 @@ public class EmprunteurRepositoryJPA implements InterfaceRepository<Emprunteur> 
         } catch (Exception e) {
             e.printStackTrace();
             return null;
-        }    }
+        }
+    }
+
+    @Override
+    public List<Emprunteur> get(String titreSubString, LocalDate annePublication) {
+        return List.of();
+    }
+
+    @Override
+    public List<Emprunteur> get(String titreSubString) {
+        return List.of();
+    }
+
+    @Override
+    public List<Emprunteur> get(LocalDate annePublication) {
+        return List.of();
+    }
+
     @Override
     public void delete(Long id) {
 

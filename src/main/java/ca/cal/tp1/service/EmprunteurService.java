@@ -13,17 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmprunteurService {
-    private InterfaceRepository<Cd> cdRepository;
-    private InterfaceRepository<Dvd> dvdRepository;
-    private InterfaceRepository<Livre> livreRepository;
-    private InterfaceRepository<Emprunteur> emprunteurRepository;
-    private InterfaceRepository<Document> documentRepository = new DocumentRepositoryJPA();
 
-    public EmprunteurService(InterfaceRepository<Cd> cdRepository, InterfaceRepository<Dvd> dvdRepository, InterfaceRepository<Livre> livreRepository, InterfaceRepository<Emprunteur> emprunteurRepository) {
-        this.cdRepository = cdRepository;
-        this.dvdRepository = dvdRepository;
-        this.livreRepository = livreRepository;
+    private InterfaceRepository<Emprunteur> emprunteurRepository;
+    private InterfaceRepository<Document> documentRepository;
+
+    public EmprunteurService( InterfaceRepository<Emprunteur> emprunteurRepository, InterfaceRepository<Document> documentRepository) {
         this.emprunteurRepository = emprunteurRepository;
+        this.documentRepository = documentRepository;
     }
 
     public Document getDocument(Long id){
@@ -50,15 +46,31 @@ public class EmprunteurService {
         document.setNombreExemplaire(nmbreExemplaire);
         documentRepository.save(document);
     }
-    public void rechercheLivre() {
-        // TODO rappelle que le titre ne doit pas être exacte
+    public void rechercheDocument(String titreSubString, LocalDate anneePublication) {
+        List<Document> documents = documentRepository.get(titreSubString, anneePublication);
+        System.out.println("\n \n");
+        for (Document document : documents) {
+            System.out.println(document);
+        }
+        System.out.println("\n \n");
     }
-    public void rechercheCd() {
-        // TODO rappelle que le titre ne doit pas être exacte
+    public void rechercheDocument(String titreSubString) {
+        List<Document> documents = documentRepository.get(titreSubString);
+        System.out.println("\n \n");
+        for (Document document : documents) {
+            System.out.println(document);
+        }
+        System.out.println("\n \n");
     }
-    public void rechercheDvd() {
-        // TODO rappelle que le titre ne doit pas être exacte
+    public void rechercheDocument(LocalDate anneePublication) {
+        List<Document> documents = documentRepository.get(anneePublication);
+        System.out.println("\n \n");
+        for (Document document : documents) {
+            System.out.println(document);
+        }
+        System.out.println("\n \n");
     }
+
     public void emprunterLivre() {
         // TODO rappelle que s'il n'y a plus d'exemplaire, on ne peut pas emprunter
     }

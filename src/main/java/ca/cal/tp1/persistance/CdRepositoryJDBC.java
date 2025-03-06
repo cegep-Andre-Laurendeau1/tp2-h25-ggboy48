@@ -6,6 +6,8 @@ import ca.cal.tp1.modele.Cd;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.List;
 
 public class CdRepositoryJDBC extends RepositoryParent implements InterfaceRepository<Cd>{
 
@@ -48,6 +50,21 @@ public class CdRepositoryJDBC extends RepositoryParent implements InterfaceRepos
             throw new RuntimeException(e);
         }
         return null;
+    }
+
+    @Override
+    public List<Cd> get(String titreSubString, LocalDate annePublication) {
+        return List.of();
+    }
+
+    @Override
+    public List<Cd> get(String titreSubString) {
+        return List.of();
+    }
+
+    @Override
+    public List<Cd> get(LocalDate annePublication) {
+        return List.of();
     }
 
     @Override

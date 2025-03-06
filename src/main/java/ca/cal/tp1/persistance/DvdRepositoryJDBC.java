@@ -4,6 +4,8 @@ import ca.cal.tp1.DTO.DvdDTO;
 import ca.cal.tp1.modele.Dvd;
 
 import java.sql.PreparedStatement;
+import java.time.LocalDate;
+import java.util.List;
 
 public class DvdRepositoryJDBC extends RepositoryParent implements InterfaceRepository<Dvd> {
 
@@ -45,6 +47,21 @@ public class DvdRepositoryJDBC extends RepositoryParent implements InterfaceRepo
             throw new RuntimeException(e);
         }
         return null;
+    }
+
+    @Override
+    public List<Dvd> get(String titreSubString, LocalDate annePublication) {
+        return List.of();
+    }
+
+    @Override
+    public List<Dvd> get(String titreSubString) {
+        return List.of();
+    }
+
+    @Override
+    public List<Dvd> get(LocalDate annePublication) {
+        return List.of();
     }
 
     @Override

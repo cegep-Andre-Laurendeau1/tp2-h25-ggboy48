@@ -4,6 +4,8 @@ import ca.cal.tp1.DTO.LivreDTO;
 import ca.cal.tp1.modele.Livre;
 
 import java.sql.PreparedStatement;
+import java.time.LocalDate;
+import java.util.List;
 
 public class LivreRepositoryJDBC extends RepositoryParent implements InterfaceRepository<Livre> {
 
@@ -47,6 +49,21 @@ public class LivreRepositoryJDBC extends RepositoryParent implements InterfaceRe
             throw new RuntimeException(e);
         }
         return null;
+    }
+
+    @Override
+    public List<Livre> get(String titreSubString, LocalDate annePublication) {
+        return List.of();
+    }
+
+    @Override
+    public List<Livre> get(String titreSubString) {
+        return List.of();
+    }
+
+    @Override
+    public List<Livre> get(LocalDate annePublication) {
+        return List.of();
     }
 
     @Override
