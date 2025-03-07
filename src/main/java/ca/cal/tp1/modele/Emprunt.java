@@ -35,4 +35,11 @@ public class Emprunt {
         this.status = status;
         this.emprunteur = emprunteur;
     }
+    public String toString() {
+        return "Emprunt{" +
+                "id=" + id +
+                ", dateEmprunt=" + dateEmprunt +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }

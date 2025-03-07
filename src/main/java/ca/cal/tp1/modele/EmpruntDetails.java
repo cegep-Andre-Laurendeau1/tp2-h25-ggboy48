@@ -57,4 +57,12 @@ public class EmpruntDetails {
     public String getStatus() {
         return status;
     }
+    public String toString() {
+        return "EmpruntDetails{" +
+                "id=" + id +
+                ", dateRetourPrevue=" + dateRetourPrevue +
+                ", dateRetourActuelle=" + dateRetourActuelle +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }

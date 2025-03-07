@@ -27,43 +27,64 @@ public class Main {
 //        emprunteurServiceJDBC.saveDvd("titre JDBC",LocalDate.of(2023, 1, 1),1,"directeur", 1, "genre");
 //        System.out.println(emprunteurServiceJDBC.getDvd(1L));
 
-
-
+        System.out.println("#####################");
+        System.out.println("#Section getDocument#");
+        System.out.println("#####################");
         emprunteurServiceJPA.saveLivre("titre JPA", LocalDate.of(2021, 1, 1),1,"ISBN","auteur","editeur",1);
-//        System.out.println(emprunteurServiceJPA.getDocument(1L));
+        System.out.println(emprunteurServiceJPA.getDocument(1L));
 
         emprunteurServiceJPA.saveCd("titre JPA",LocalDate.of(2021, 1, 1),1,"artiste",1, "genre");
-//        System.out.println(emprunteurServiceJPA.getDocument(2L));
+        System.out.println(emprunteurServiceJPA.getDocument(2L));
 
         emprunteurServiceJPA.saveDvd("titre JPA",LocalDate.of(2021, 1, 1),1,"directeur", 1, "genre");
-//        System.out.println(emprunteurServiceJPA.getDocument(3L));
+        System.out.println(emprunteurServiceJPA.getDocument(3L));
 
         emprunteurServiceJPA.saveDvd("TITLE JPA",LocalDate.of(2021, 1, 1),1,"directeur", 1, "genre");
-//        System.out.println(emprunteurServiceJPA.getDocument(4L));
+        System.out.println(emprunteurServiceJPA.getDocument(4L));
 
         emprunteurServiceJPA.saveDvd("title JPA",LocalDate.of(2021, 1, 1),1,"directeur", 1, "genre");
-//        System.out.println(emprunteurServiceJPA.getDocument(5L));
+        System.out.println(emprunteurServiceJPA.getDocument(5L));
 
+
+        System.out.println("###########################");
+        System.out.println("#Section ajouterEmprunteur#");
+        System.out.println("###########################");
         emprunteurServiceJPA.ajouterEmprunteur("nom", "email", "numTelephone");
+        System.out.println("########################");
+        System.out.println("#Section saveExemplaire#");
+        System.out.println("########################");
         emprunteurServiceJPA.saveExemplaire(30, 1L);
         emprunteurServiceJPA.saveExemplaire(30, 2L);
 
-//        emprunteurServiceJPA.rechercheDocument("titre", LocalDate.of(2021, 1, 1));
-//        emprunteurServiceJPA.rechercheDocument("titre");
-//        emprunteurServiceJPA.rechercheDocument("JPA");
-//        emprunteurServiceJPA.rechercheDocument(LocalDate.of(2021, 1, 1));
+        System.out.println("###########################");
+        System.out.println("#Section rechercheDocument#");
+        System.out.println("###########################");
+        emprunteurServiceJPA.rechercheDocument("titre", LocalDate.of(2021, 1, 1));
+        emprunteurServiceJPA.rechercheDocument("titre");
+        emprunteurServiceJPA.rechercheDocument("JPA");
+        emprunteurServiceJPA.rechercheDocument(LocalDate.of(2021, 1, 1));
 
+        System.out.println("###########################");
+        System.out.println("#Section emrpunterDocument#");
+        System.out.println("###########################");
         List<Long> list = new ArrayList<>();
         list.add(1L);
         list.add(2L);
         emprunteurServiceJPA.emprunterDocument(list, 1L);
+        list.add(3L);
+        emprunteurServiceJPA.emprunterDocument(list, 1L);
 
-//        emprunteurServiceJPA.getDocumentsEmprunteur();
+        System.out.println("################################");
+        System.out.println("#Section getDocumentsEmprunteur#");
+        System.out.println("################################");
+        emprunteurServiceJPA.getDocumentsEmprunteur(1L);
 
-
-//        System.out.println(emprunteurServiceJPA.getDocument(1L));
-//        System.out.println(emprunteurServiceJPA.getDocument(2L));
-//        System.out.println(emprunteurServiceJPA.getDocument(3L));
+        System.out.println("########################");
+        System.out.println("#Section getDocumentFin#");
+        System.out.println("########################");
+        System.out.println(emprunteurServiceJPA.getDocument(1L));
+        System.out.println(emprunteurServiceJPA.getDocument(2L));
+        System.out.println(emprunteurServiceJPA.getDocument(3L));
 
         Thread.currentThread().join();
     }

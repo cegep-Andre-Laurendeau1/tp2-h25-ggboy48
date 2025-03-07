@@ -48,7 +48,29 @@ public class EmpruntRepositoryJPA implements InterfaceRepository<Emprunt> {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
-        }    }
+        }
+    }
+
+    public List<Emprunt> get(Emprunteur emprunteur) {
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()){
+            entityManager.getTransaction().begin();
+            TypedQuery<Emprunt> query = entityManager.createQuery(
+                    "SELECT emprunt FROM Emprunt emprunt " +
+                            "WHERE emprunt.emprunteur.id = :idEmprunteur", Emprunt.class);
+            query.setParameter("idEmprunteur", emprunteur.getId());
+            query.getResultList();
+            entityManager.getTransaction().commit();
+            return query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List<Emprunt> get(Emprunt emprunt) {
+        return List.of();
+    }
 
     @Override
     public List<Emprunt> get(String titreSubString, LocalDate annePublication) {

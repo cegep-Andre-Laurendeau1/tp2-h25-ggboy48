@@ -91,7 +91,20 @@ public class EmprunteurService {
     }
 
     public void getDocumentsEmprunteur(Long idEmprunteur){
-        // TODO pense a ce que tu doit faire
+        Emprunteur emprunteur = emprunteurRepository.get(idEmprunteur);
+        List<Emprunt> emprunts = empruntRepository.get(emprunteur);
+
+        for (Emprunt emprunt : emprunts) {
+            System.out.println(emprunt);
+            if(emprunt.getEmprunteur().getId() == emprunteur.getId()){
+                List<EmpruntDetails> empruntDetails = empruntDetailsRepository.get(emprunt);
+                System.out.println(empruntDetails);
+                for (EmpruntDetails empruntDetail : empruntDetails) {
+                    System.out.println(empruntDetail.getDocument());
+                }
+            }
+        }
+        System.out.println("\n \n");
     }
 
     public List<EmpruntDetails> getItems(){

@@ -1,6 +1,7 @@
 package ca.cal.tp1.persistance;
 
 import ca.cal.tp1.modele.Cd;
+import ca.cal.tp1.modele.Emprunt;
 import ca.cal.tp1.modele.Emprunteur;
 import ca.cal.tp1.service.EmprunteurService;
 import jakarta.persistence.EntityManager;
@@ -59,5 +60,15 @@ public class EmprunteurRepositoryJPA implements InterfaceRepository<Emprunteur> 
     @Override
     public void delete(Long id) {
 
+    }
+
+    @Override
+    public List<Emprunteur> get(Emprunteur emprunteur) {
+        return List.of();
+    }
+
+    @Override
+    public List<Emprunteur> get(Emprunt emprunt) {
+        return List.of();
     }
 }

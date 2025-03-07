@@ -1,6 +1,8 @@
 package ca.cal.tp1.persistance;
 
 import ca.cal.tp1.modele.Document;
+import ca.cal.tp1.modele.Emprunt;
+import ca.cal.tp1.modele.Emprunteur;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -48,6 +50,17 @@ public class DocumentRepositoryJPA implements InterfaceRepository<Document> {
     public void delete(Long id) {
 
     }
+
+    @Override
+    public List<Document> get(Emprunteur emprunteur) {
+        return List.of();
+    }
+
+    @Override
+    public List<Document> get(Emprunt emprunt) {
+        return List.of();
+    }
+
     public List<Document> get(String titreSubString, LocalDate annePublication) {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()){
             entityManager.getTransaction().begin();

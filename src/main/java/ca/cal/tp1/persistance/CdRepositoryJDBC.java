@@ -3,6 +3,8 @@ package ca.cal.tp1.persistance;
 
 import ca.cal.tp1.DTO.CdDTO;
 import ca.cal.tp1.modele.Cd;
+import ca.cal.tp1.modele.Emprunt;
+import ca.cal.tp1.modele.Emprunteur;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -76,5 +78,15 @@ public class CdRepositoryJDBC extends RepositoryParent implements InterfaceRepos
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public List<Cd> get(Emprunteur emprunteur) {
+        return List.of();
+    }
+
+    @Override
+    public List<Cd> get(Emprunt emprunt) {
+        return List.of();
     }
 }

@@ -1,6 +1,8 @@
 package ca.cal.tp1.persistance;
 
+import ca.cal.tp1.modele.Emprunt;
 import ca.cal.tp1.modele.EmpruntDetails;
+import ca.cal.tp1.modele.Emprunteur;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -44,6 +46,22 @@ public class EmpruntDetailsRepositoryJPA implements InterfaceRepository<EmpruntD
         }
     }
 
+    public List<EmpruntDetails> get(Emprunt emprunt) {
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()){
+            entityManager.getTransaction().begin();
+            TypedQuery<EmpruntDetails> query = entityManager.createQuery(
+                    "SELECT empruntDetails FROM EmpruntDetails empruntDetails " +
+                            "WHERE empruntDetails.emprunt = :emprunt", EmpruntDetails.class);
+            query.setParameter("emprunt", emprunt);
+            query.getResultList();
+            entityManager.getTransaction().commit();
+            return query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return List.of();
+        }
+    }
+
     @Override
     public List<EmpruntDetails> get(String titreSubString, LocalDate annePublication) {
         return List.of();
@@ -62,5 +80,10 @@ public class EmpruntDetailsRepositoryJPA implements InterfaceRepository<EmpruntD
     @Override
     public void delete(Long id) {
 
+    }
+
+    @Override
+    public List<EmpruntDetails> get(Emprunteur emprunteur) {
+        return List.of();
     }
 }
