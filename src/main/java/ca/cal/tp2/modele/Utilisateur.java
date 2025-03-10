@@ -12,13 +12,13 @@ import lombok.NoArgsConstructor;
 public abstract class Utilisateur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private int id;
+   private Integer id;
    private String nom;
    private String prenom;
    private String email;
    private String phone;
 
-   public Utilisateur(int id, String nom, String prenom, String email, String phone) {
+   public Utilisateur(Integer id, String nom, String prenom, String email, String phone) {
        this.id = id;
        this.nom = nom;
        this.prenom = prenom;

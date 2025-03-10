@@ -22,11 +22,19 @@ public class EmprunteurRepositoryJPA implements EmprunteurRepository {
     }
 
     @Override
-    public Emprunteur getById(int id) throws EntityNotFoundException {
+    public Emprunteur getByEmail(String nom,String prenom, String email) throws EntityNotFoundException {
+
+        // Vérification des paramètres
+        System.out.println("Recherche l'emprunteur avec les paramètres :");
+        System.out.println("nom : " + nom);
+        System.out.println("prenom : " + prenom);
+        System.out.println("Email : " + email);
+
+
         try (EntityManager em = emf.createEntityManager()) {
-            Emprunteur emprunteur = em.find(Emprunteur.class, id);
+            Emprunteur emprunteur = em.find(Emprunteur.class, email);
             if (emprunteur == null) {
-                throw new EntityNotFoundException("Emprunteur non trouvé avec l'ID : " + id);
+                throw new EntityNotFoundException("Emprunteur non trouvé avec le courriel : " + email);
             }
             return emprunteur;
         }

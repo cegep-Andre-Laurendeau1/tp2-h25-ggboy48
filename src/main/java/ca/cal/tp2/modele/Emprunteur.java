@@ -2,6 +2,7 @@ package ca.cal.tp2.modele;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -17,6 +18,7 @@ import java.util.Set;
 @ToString
 @DiscriminatorValue("Emprunteur")
 
+
 public class Emprunteur extends Utilisateur {
 
     @OneToMany(mappedBy = "emprunteur",cascade = CascadeType.PERSIST)
@@ -26,9 +28,10 @@ public class Emprunteur extends Utilisateur {
     private Set<Amende> amendes = new HashSet<>();
 
 
-    public Emprunteur(int id, String nom, String prnom ,String email ,String phone) {
-        super(id, nom, prnom, email, phone);
+    public Emprunteur(Integer id, String nom, String prenom, String email, String telephone) {
+        super(id, nom, prenom, email, telephone);
     }
+
 
 
     //methode

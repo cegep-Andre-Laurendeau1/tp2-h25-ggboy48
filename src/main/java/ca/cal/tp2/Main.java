@@ -17,7 +17,7 @@ public class Main {
     public static void main(String[] args) throws SQLException, InterruptedException, DuplicateEntityException {
         TcpServer.startTcpServer();
 
-        final PreposeService preposeService = new PreposeService(new DocumentRepositoryJPA(), new EmpruntRepositoryJPA());
+        final PreposeService preposeService = new PreposeService(new DocumentRepositoryJPA(), new EmpruntRepositoryJPA(),new EmprunteurRepositoryJPA());
         final BibliothequeSystemService bibliothequeSystemService = new BibliothequeSystemService(new DocumentRepositoryJPA(), new EmprunteurRepositoryJPA());
 
         try {
@@ -31,6 +31,8 @@ public class Main {
 
             preposeService.ajouteDVD("Jaws","John Smith",1974,2,"Ellen Mark",150,"Classic");
             DocumentDTO dvd1 = bibliothequeSystemService.rechercherDocument("Jaws",null,1974,null,"Ellen Mark");
+
+            preposeService.ajouteEmprunteur("Leung","Alrik","alrikleung12@hotmail.com","5146598132");
 
 
         } catch (DuplicateEntityException e) {

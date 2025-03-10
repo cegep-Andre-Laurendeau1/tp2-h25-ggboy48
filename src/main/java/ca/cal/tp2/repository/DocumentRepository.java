@@ -13,7 +13,7 @@ public interface DocumentRepository {
     void save(Document document) throws DuplicateEntityException;
     Livre rechercheLivre(String titre, String auteur, Integer annee) throws DataErrorHandler;
     CD rechercheCd(String titre, String artiste) throws DataErrorHandler;
-    DVD rechercheDvd(String titre, String realisateur) throws DataErrorHandler;
+    DVD rechercheDvd(String titre, String directeur) throws DataErrorHandler;
 }
 
 
