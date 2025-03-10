@@ -21,8 +21,8 @@ public class Main {
         final BibliothequeSystemService bibliothequeSystemService = new BibliothequeSystemService(new DocumentRepositoryJPA(), new EmprunteurRepositoryJPA());
 
         try {
-            preposeService.ajouteLivre("Harry Potter", "JK Rowling", 1998, 4, "2325ER3", "Google", 340);
-            DocumentDTO livre1 = bibliothequeSystemService.rechercherDocument("Harry Potter", "JK Rowling", null,null,null);
+            preposeService.ajouteLivre("Harry Potter 3", "JK Rowling", 1998, 4, "2325ER3", "Google", 340);
+            DocumentDTO livre1 = bibliothequeSystemService.rechercherDocument("Harry Potter 3", "JK Rowling", null,null,null);
             System.out.println(livre1);
 
             preposeService.ajouteCD("Billy Jean", "Michael Jackson", 1985, 4, "Michael Jackson", 90, "Pop");
