@@ -11,15 +11,16 @@ import jakarta.persistence.Table;
 @Data
 @NoArgsConstructor
 @Getter
+@Table(name="CD")
 
 public class CD extends Document  {
     private String artiste;
     private int duree;
     private String genre;
-    private final int dureeSemaineEmprunt = 2;
+    private int dureeSemaineEmprunt = 2;
 
 
-    public CD(long id, String titre, String auteur, int anneePublication,  int nbrInventaire,
+    public CD(Integer id, String titre, String auteur, int anneePublication,  int nbrInventaire,
               String artiste, int duree, String genre) {
         super(id,titre,auteur,anneePublication,nbrInventaire);
         this.artiste = artiste;

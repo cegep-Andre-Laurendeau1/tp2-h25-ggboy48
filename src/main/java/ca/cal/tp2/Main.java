@@ -1,46 +1,38 @@
 package ca.cal.tp2;
 
+import ca.cal.tp2.exception.DataErrorHandler;
 import ca.cal.tp2.exception.DuplicateEntityException;
-import ca.cal.tp2.modele.Livre;
-import ca.cal.tp2.repository.*;
-import ca.cal.tp2.service.CDService;
-import ca.cal.tp2.service.DVDService;
-import ca.cal.tp2.service.LivreService;
+import ca.cal.tp2.repository.DocumentRepositoryJPA;
+import ca.cal.tp2.repository.EmpruntRepositoryJPA;
+import ca.cal.tp2.repository.EmprunteurRepositoryJPA;
+import ca.cal.tp2.service.BibliothequeSystemService;
 import ca.cal.tp2.service.PreposeService;
+import ca.cal.tp2.service.dto.DocumentDTO;
 import ca.cal.tp2.utils.TcpServer;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 
 import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) throws SQLException, InterruptedException, DuplicateEntityException {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("hibernate2.ex1");
-        EntityManager em = emf.createEntityManager();
+        TcpServer.startTcpServer();
 
-        // Créer les repository nécessaires pour PreposeService
-        LivreRepository livreRepository = new LivreRepositoryJPA();
-        CDRepository cdRepository = new CDRepositoryJPA(em);
-        DVDRepository dvdRepository = new DVDRepositoryJPA(em);
+        final PreposeService preposeService = new PreposeService(new DocumentRepositoryJPA(),new EmpruntRepositoryJPA());
+        final BibliothequeSystemService bibliothequeSystemService = new BibliothequeSystemService(new DocumentRepositoryJPA(),new EmprunteurRepositoryJPA());
 
 
-        // Créer les services
-        LivreService livreService = new LivreService(livreRepository);
-        CDService cdService = new CDService(cdRepository);
-        DVDService dvdService = new DVDService(dvdRepository);
+        try{
+            preposeService.ajouteLivre("Harry Potter","JK Rowling",1998,4,"2325ER3","Google",340);
 
-        // Créer le service PreposeService
-        PreposeService preposeService = new PreposeService(livreService,cdService,dvdService);
+            System.out.println("Recherche de livres par titre:");
+            DocumentDTO documentDTO1 = bibliothequeSystemService.rechercherDocument("Harry Potter", null, null);
+            System.out.println(documentDTO1);
 
-        // Ajouter un livre via PreposeService
-        preposeService.ajouterLivre(1, "Le Petit Prince", "Antoine de Saint-Exupéry", 1943, 14, 5, "978-2-123456-78-9", "Éditeur X", 120);
+            preposeService.ajouteCD("Billy Jean","Michael Jackson",1985,4,"Michael Jackson",90,"Pop");
 
-        // Rechercher le livre par ID via PreposeService
-
-
-        // Fermer l'EntityManager et l'EntityManagerFactory
-        em.close();
-        emf.close();
+        }catch (DuplicateEntityException e){
+            System.out.println(e.getMessage());
+        } catch (DataErrorHandler e) {
+            throw new RuntimeException(e);
+        }
     }
 }

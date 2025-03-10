@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table (name="Document")
 @DiscriminatorColumn(name = "type_document", discriminatorType = DiscriminatorType.STRING)
 @Data

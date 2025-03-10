@@ -1,11 +1,10 @@
 package ca.cal.tp2.service.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
 
 
 @Getter
+@Setter
 
 
 public class LivreDTO extends DocumentDTO {
@@ -20,8 +19,9 @@ public class LivreDTO extends DocumentDTO {
         this.ISBN = ISBN;
         this.editeur = editeur;
         this.nbPages = nbPages;
-
     }
+
+
 
 
 }

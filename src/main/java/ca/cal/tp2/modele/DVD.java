@@ -10,14 +10,14 @@ import jakarta.persistence.Table;
 @Entity
 @Data
 @NoArgsConstructor
-
+@Table(name="DVD")
 
 
 public class DVD extends Document {
     private String directeur;
     private int duree;
     private String rating;
-    private final int dureeSemaineEmprunt=1;
+    private int dureeSemaineEmprunt=1;
 
 
     public DVD(int id, String titre, String auteur, int anneePublication, int nbrInventaire,

@@ -16,7 +16,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 
-
 public class Livre extends Document {
 
     private String ISBN;
@@ -25,7 +24,7 @@ public class Livre extends Document {
 
     private int nbPages;
 
-    private final int dureeSemaineEmprunt = 3;
+    private int dureeSemaineEmprunt = 3;
 
 
     public Livre(Integer id, String titre, String auteur, int anneePublication, int nbrInventaire,

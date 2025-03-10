@@ -1,66 +1,79 @@
 package ca.cal.tp2.repository;
 
+import ca.cal.tp2.exception.DataErrorHandler;
 import ca.cal.tp2.exception.DuplicateEntityException;
 import ca.cal.tp2.modele.CD;
 import ca.cal.tp2.modele.DVD;
 import ca.cal.tp2.modele.Document;
 import ca.cal.tp2.modele.Livre;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-import jakarta.persistence.TypedQuery;
+import jakarta.persistence.*;
 
 public class DocumentRepositoryJPA implements DocumentRepository {
     private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("alrik.pu");
 
     @Override
     public void save(Document document) throws DuplicateEntityException {
-        try(EntityManager entityManager = emf.createEntityManager();) {
+        EntityManager entityManager = emf.createEntityManager();
+        try {
             entityManager.getTransaction().begin();
             entityManager.persist(document);
             entityManager.getTransaction().commit();
         } catch (RuntimeException e) {
+            if (entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
+            }
             throw new DuplicateEntityException(e.getMessage());
+        } finally {
+            entityManager.close(); // Fermer après la transaction
         }
     }
 
+
     @Override
-    public Livre rechercheLivre(String titre, String auteur, Integer anneePublication) throws DuplicateEntityException {
+    public Livre rechercheLivre(String titre, String auteur, Integer anneePublication) throws DataErrorHandler {
         try (EntityManager entityManager = emf.createEntityManager()) {
-            String query = "SELECT l FROM Livre l WHERE l.titre = :titre AND l.auteur = :auteur AND l.anneePublication = :anneePublication";
-            TypedQuery<Livre> typedQuery = entityManager.createQuery(query, Livre.class);
-            typedQuery.setParameter("titre", titre);
-            typedQuery.setParameter("auteur", auteur);
-            typedQuery.setParameter("anneePublication", anneePublication);
-            return typedQuery.getSingleResult();  // Renvoie un seul livre correspondant à la recherche
+            String sql = "SELECT l FROM Livre l WHERE 1=1";
+            if (titre != null && !titre.isEmpty()) {
+                sql += " AND LOWER(l.titre) LIKE LOWER(:titre)";
+            }
+            if (auteur != null && !auteur.isEmpty()) {
+                sql += " AND LOWER(l.auteur) = LOWER(:auteur)";
+            }
+            if (anneePublication != null) {
+                sql += " AND l.anneePublication = :anneePublication";
+            }
+
+            TypedQuery<Livre> typedQuery = entityManager.createQuery(sql, Livre.class);
+
+            if (titre != null && !titre.isEmpty()) {
+                typedQuery.setParameter("titre", "%" + titre + "%");
+            }
+            if (auteur != null && !auteur.isEmpty()) {
+                typedQuery.setParameter("auteur", auteur);
+            }
+            if (anneePublication != null) {
+                typedQuery.setParameter("anneePublication", anneePublication);
+            }
+
+            return typedQuery.getSingleResult();
+        } catch (NoResultException e) {
+            return null; // Pas d'erreur, mais pas de résultat
         } catch (RuntimeException e) {
-            throw new DuplicateEntityException("Erreur lors de la recherche du livre : " + e.getMessage());
+            throw new DataErrorHandler(e);
         }
     }
 
+
     @Override
-    public CD rechercheCD(String titre, String artiste) throws DuplicateEntityException {
-        try (EntityManager entityManager = emf.createEntityManager()) {
-            String query = "SELECT c FROM CD c WHERE c.titre = :titre AND c.artiste = :artiste";
-            TypedQuery<CD> typedQuery = entityManager.createQuery(query, CD.class);
-            typedQuery.setParameter("titre", titre);
-            typedQuery.setParameter("artiste", artiste);
-            return typedQuery.getSingleResult();  // Renvoie un seul CD correspondant à la recherche
-        } catch (RuntimeException e) {
-            throw new DuplicateEntityException("Erreur lors de la recherche du CD : " + e.getMessage());
-        }
+    public CD rechercheCd(String titre, String artiste) throws DataErrorHandler {
+        return null;
     }
 
     @Override
-    public DVD rechercheDVD(String titre, String directeur) throws DuplicateEntityException {
-        try (EntityManager entityManager = emf.createEntityManager()) {
-            String query = "SELECT d FROM DVD d WHERE d.titre = :titre AND d.directeur = :directeur";
-            TypedQuery<DVD> typedQuery = entityManager.createQuery(query, DVD.class);
-            typedQuery.setParameter("titre", titre);
-            typedQuery.setParameter("directeur", directeur);
-            return typedQuery.getSingleResult();  // Renvoie un seul DVD correspondant à la recherche
-        } catch (RuntimeException e) {
-            throw new DuplicateEntityException("Erreur lors de la recherche du DVD : " + e.getMessage());
-        }
+    public DVD rechercheDvd(String titre, String realisateur) throws DataErrorHandler {
+        return null;
     }
+
+
+
 }

@@ -2,14 +2,12 @@ package ca.cal.tp2.service.dto;
 
 import ca.cal.tp2.modele.Document;
 import ca.cal.tp2.modele.Livre;
-import ca.cal.tp2.modele.CD;
-import ca.cal.tp2.modele.DVD;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
-@Data
+@Setter
 @AllArgsConstructor
 public abstract class DocumentDTO {
     private Integer id;
