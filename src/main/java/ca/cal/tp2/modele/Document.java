@@ -16,13 +16,13 @@ public abstract class Document {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Integer id;
     private String titre;
     private String auteur;
     private int anneePublication;
     private int nbrInventaires;
 
-    public Document(long id, String titre, String auteur, int anneePublication, int nbrInventaires) {
+    public Document(Integer id, String titre, String auteur, int anneePublication, int nbrInventaires) {
         this.id = id;
         this.titre = titre;
         this.auteur = auteur;

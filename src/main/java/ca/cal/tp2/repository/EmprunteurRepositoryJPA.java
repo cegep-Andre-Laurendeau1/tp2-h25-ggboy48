@@ -23,6 +23,12 @@ public class EmprunteurRepositoryJPA implements EmprunteurRepository {
 
     @Override
     public Emprunteur getById(int id) throws EntityNotFoundException {
-        return null;
+        try (EntityManager em = emf.createEntityManager()) {
+            Emprunteur emprunteur = em.find(Emprunteur.class, id);
+            if (emprunteur == null) {
+                throw new EntityNotFoundException("Emprunteur non trouvé avec l'ID : " + id);
+            }
+            return emprunteur;
+        }
     }
 }

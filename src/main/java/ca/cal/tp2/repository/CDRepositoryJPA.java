@@ -9,7 +9,7 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.RollbackException;
 
 public class CDRepositoryJPA implements CDRepository {
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("hibernate2.ex1");
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("alrik.pu");
 
     public CDRepositoryJPA(EntityManager em) {
     }

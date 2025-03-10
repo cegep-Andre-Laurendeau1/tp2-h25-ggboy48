@@ -13,43 +13,5 @@ import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 
 public class PreposeService {
-    private final LivreService livreService;
-    private final CDService cdService;
-    private final DVDService dvdService;
 
-
-    public PreposeService(LivreService livreService, CDService cdService,DVDService dvdService) {
-        this.livreService = livreService;
-        this.cdService = cdService;
-        this.dvdService = dvdService;
-    }
-
-    public void ajouterLivre(int id, String titre, String auteur, int anneePublication, int dureEmprunt, int nbInventaire ,String isbn, String editeur, int nbPages) throws DuplicateEntityException {
-        livreService.createLivre(id,titre,auteur,anneePublication,dureEmprunt,nbInventaire,isbn,editeur,nbPages);
-    }
-
-
-    public Livre getLivreById(int id) throws EntityNotFoundException {
-        return livreService.findLivre(id);
-    }
-
-/*
-    public void ajouterCD(int id, String titre, String auteur, int anneePublication, int dureEmprunt, int nbInventaire, String artiste, int duree, String genre) {
-        CD cd = new CD(id,titre,auteur,anneePublication,dureEmprunt,nbInventaire,artiste,duree,genre);
-        documentRepository.saveDocument(cd);
-    }
-
-    public CD getCDById(int id) {
-        return cdService.findCD(id);
-    }
-
-    public void ajouterDVD(int id, String titre, String auteur, int anneePublication, int dureEmprunt, int nbInventaire, String directeur ,int duree, String rating){
-        DVD dvd = new DVD(id,titre,auteur,anneePublication,dureEmprunt,nbInventaire,directeur,duree,rating);
-        documentRepository.saveDocument(dvd);
-    }
-
-    public DVD getDVDById(int id) {
-        return dvdRepository.getDvDById(id);
-    }
-*/
 }
