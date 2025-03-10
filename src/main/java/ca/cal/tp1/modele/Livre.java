@@ -1,8 +1,9 @@
 package ca.cal.tp1.modele;
 
+import ca.cal.tp1.service.DTO.CdDTO;
+import ca.cal.tp1.service.DTO.DocumentDTO;
+import ca.cal.tp1.service.DTO.LivreDTO;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -12,9 +13,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Livre extends Document {
-    @Id
-    @GeneratedValue
-    private Long id;
 
     private String ISBN;
     private String auteur;
@@ -30,8 +28,7 @@ public class Livre extends Document {
         this.nombrePages = nombrePages;
     }
     public Livre(Long id, String titre, LocalDate anneePublication, int nombreExemplaire, String ISBN, String auteur, String editeur, int nombrePages) {
-        super(titre, anneePublication, nombreExemplaire);
-        this.id = id;
+        super(id, titre, anneePublication, nombreExemplaire);
         this.ISBN = ISBN;
         this.auteur = auteur;
         this.editeur = editeur;
@@ -71,5 +68,10 @@ public class Livre extends Document {
                 ", nombrePages=" + nombrePages +
                 ", dureeEmpruntSem=" + dureeEmpruntSem +
                 '}';
+    }
+
+    @Override
+    public DocumentDTO toDTO() {
+        return new LivreDTO(getTitre(), getAnneePublication(), ISBN, auteur, editeur, nombrePages);
     }
 }

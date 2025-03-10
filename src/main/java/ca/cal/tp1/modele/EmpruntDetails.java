@@ -1,5 +1,6 @@
 package ca.cal.tp1.modele;
 
+import ca.cal.tp1.service.DTO.EmpruntDetailDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -64,5 +65,9 @@ public class EmpruntDetails {
                 ", dateRetourActuelle=" + dateRetourActuelle +
                 ", status='" + status + '\'' +
                 '}';
+    }
+
+    public EmpruntDetailDTO toDTO() {
+        return new EmpruntDetailDTO(this.dateRetourPrevue, this.dateRetourActuelle, this.status, this.emprunt, this.document);
     }
 }

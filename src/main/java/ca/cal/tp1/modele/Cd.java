@@ -1,9 +1,8 @@
 package ca.cal.tp1.modele;
 
+import ca.cal.tp1.service.DTO.CdDTO;
+import ca.cal.tp1.service.DTO.DocumentDTO;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
@@ -11,9 +10,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Entity
 public class Cd extends Document{
-    @Id
-    @GeneratedValue
-    private Long id;
     private String artiste;
     private int duree;
     private String genre;
@@ -26,9 +22,8 @@ public class Cd extends Document{
         this.genre = genre;
     }
 
-    public Cd(long id, String titre, LocalDate anneePublication, int nombreExemplaire, String artiste, int duree, String genre) {
-        super(titre, anneePublication, nombreExemplaire);
-        this.id = id;
+    public Cd(Long id, String titre, LocalDate anneePublication, int nombreExemplaire, String artiste, int duree, String genre) {
+        super(id, titre, anneePublication, nombreExemplaire);
         this.artiste = artiste;
         this.duree = duree;
         this.genre = genre;
@@ -63,6 +58,11 @@ public class Cd extends Document{
                 ", genre='" + genre + '\'' +
                 ", dureeEmpruntSem=" + dureeEmpruntSem +
                 '}';
+    }
+
+    @Override
+    public DocumentDTO toDTO() {
+        return new CdDTO(getTitre(), getAnneePublication(),artiste, duree, genre);
     }
 
 }

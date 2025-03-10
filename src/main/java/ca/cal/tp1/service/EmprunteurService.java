@@ -1,13 +1,8 @@
 package ca.cal.tp1.service;
 
-import ca.cal.tp1.DTO.CdDTO;
-import ca.cal.tp1.DTO.DvdDTO;
-import ca.cal.tp1.DTO.LivreDTO;
 import ca.cal.tp1.modele.*;
-import ca.cal.tp1.persistance.DocumentRepositoryJPA;
 import ca.cal.tp1.persistance.InterfaceRepository;
 
-import javax.print.Doc;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +14,7 @@ public class EmprunteurService {
     private InterfaceRepository<EmpruntDetails> empruntDetailsRepository;
     private InterfaceRepository<Emprunt> empruntRepository;
 
-    public EmprunteurService( InterfaceRepository<Emprunteur> emprunteurRepository, InterfaceRepository<Document> documentRepository, InterfaceRepository<EmpruntDetails> empruntDetailsRepository, InterfaceRepository<Emprunt> empruntRepository) {
+    public EmprunteurService(InterfaceRepository<Emprunteur> emprunteurRepository, InterfaceRepository<Document> documentRepository, InterfaceRepository<EmpruntDetails> empruntDetailsRepository, InterfaceRepository<Emprunt> empruntRepository) {
         this.emprunteurRepository = emprunteurRepository;
         this.documentRepository = documentRepository;
         this.empruntDetailsRepository = empruntDetailsRepository;
@@ -52,27 +47,21 @@ public class EmprunteurService {
     }
     public void rechercheDocument(String titreSubString, LocalDate anneePublication) {
         List<Document> documents = documentRepository.get(titreSubString, anneePublication);
-        System.out.println("\n \n");
         for (Document document : documents) {
-            System.out.println(document);
+            System.out.println(document.toDTO());
         }
-        System.out.println("\n \n");
     }
     public void rechercheDocument(String titreSubString) {
         List<Document> documents = documentRepository.get(titreSubString);
-        System.out.println("\n \n");
         for (Document document : documents) {
-            System.out.println(document);
+            System.out.println(document.toDTO());
         }
-        System.out.println("\n \n");
     }
     public void rechercheDocument(LocalDate anneePublication) {
         List<Document> documents = documentRepository.get(anneePublication);
-        System.out.println("\n \n");
         for (Document document : documents) {
-            System.out.println(document);
+            System.out.println(document.toDTO());
         }
-        System.out.println("\n \n");
     }
 
     public void emprunterDocument(List<Long> idDocuments, Long idEmprunteur){
@@ -95,27 +84,15 @@ public class EmprunteurService {
         List<Emprunt> emprunts = empruntRepository.get(emprunteur);
 
         for (Emprunt emprunt : emprunts) {
-            System.out.println(emprunt);
+            System.out.println(emprunt.toDTO());
             if(emprunt.getEmprunteur().getId() == emprunteur.getId()){
                 List<EmpruntDetails> empruntDetails = empruntDetailsRepository.get(emprunt);
-                System.out.println(empruntDetails);
                 for (EmpruntDetails empruntDetail : empruntDetails) {
-                    System.out.println(empruntDetail.getDocument());
+                    System.out.println(empruntDetail.toDTO());
+                    System.out.println(empruntDetail.getDocument().toDTO());
                 }
             }
         }
         System.out.println("\n \n");
     }
-
-    public List<EmpruntDetails> getItems(){
-        List<EmpruntDetails> emprunts = new ArrayList<>();
-        return emprunts;
-    }
-
-
-//    public boolean isEnRetard(Long id) {
-//        if (dateRetourActuelle != null) return dateRetourPrevue.isAfter(dateRetourActuelle);
-//        LocalDate dateAujourdhui = LocalDate.now();
-//        return dateRetourPrevue.isAfter(dateAujourdhui);
-//    }
 }

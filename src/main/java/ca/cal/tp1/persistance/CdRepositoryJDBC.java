@@ -1,7 +1,6 @@
 package ca.cal.tp1.persistance;
 
 
-import ca.cal.tp1.DTO.CdDTO;
 import ca.cal.tp1.modele.Cd;
 import ca.cal.tp1.modele.Emprunt;
 import ca.cal.tp1.modele.Emprunteur;

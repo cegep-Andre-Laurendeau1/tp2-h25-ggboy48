@@ -1,6 +1,6 @@
 package ca.cal.tp1.persistance;
 
-import ca.cal.tp1.DTO.DvdDTO;
+import ca.cal.tp1.service.DTO.DvdDTO;
 import ca.cal.tp1.modele.Dvd;
 import ca.cal.tp1.modele.Emprunt;
 import ca.cal.tp1.modele.Emprunteur;

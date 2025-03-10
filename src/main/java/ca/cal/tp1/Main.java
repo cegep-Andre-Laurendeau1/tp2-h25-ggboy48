@@ -71,6 +71,7 @@ public class Main {
         list.add(1L);
         list.add(2L);
         emprunteurServiceJPA.emprunterDocument(list, 1L);
+
         list.add(3L);
         emprunteurServiceJPA.emprunterDocument(list, 1L);
 

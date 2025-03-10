@@ -1,11 +1,11 @@
 package ca.cal.tp1.modele;
 
+import ca.cal.tp1.service.DTO.EmpruntDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -41,5 +41,9 @@ public class Emprunt {
                 ", dateEmprunt=" + dateEmprunt +
                 ", status='" + status + '\'' +
                 '}';
+    }
+
+    public EmpruntDTO toDTO() {
+        return new EmpruntDTO(this.dateEmprunt, this.status, this.emprunteur);
     }
 }

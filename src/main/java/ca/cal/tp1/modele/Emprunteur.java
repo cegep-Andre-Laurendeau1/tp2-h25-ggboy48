@@ -1,5 +1,6 @@
 package ca.cal.tp1.modele;
 
+import ca.cal.tp1.service.DTO.EmprunteurDTO;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
@@ -16,7 +17,11 @@ public class Emprunteur extends Utilisateur {
     List<Amende> amendes;
     @OneToMany(mappedBy = "emprunteur", cascade = CascadeType.ALL)
     List<Emprunt> emprunts;
-    public Emprunteur(String nom, String prenom, String courriel) {
-        super(nom, prenom, courriel);
+    public Emprunteur(String nom, String email, String numTelephone) {
+        super(nom, email, numTelephone);
+    }
+
+    public EmprunteurDTO toDTO() {
+        return new EmprunteurDTO(this.getNom(), this.getEmail(), this.getNumTelephone());
     }
 }

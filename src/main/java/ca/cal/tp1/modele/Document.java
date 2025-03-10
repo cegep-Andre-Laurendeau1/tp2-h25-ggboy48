@@ -1,19 +1,21 @@
 package ca.cal.tp1.modele;
 
+import ca.cal.tp1.service.DTO.CdDTO;
+import ca.cal.tp1.service.DTO.DocumentDTO;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.time.LocalDate;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Document {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String titre;
@@ -24,6 +26,8 @@ public abstract class Document {
         this.anneePublication = anneePublication;
         this.nombreExemplaire = nombreExemplaire;
     }
+
+
     public Long getId() {
         return id;
     }
@@ -52,4 +56,5 @@ public abstract class Document {
                 ", nombreExemplaire=" + nombreExemplaire +
                 '}';
     }
+    public abstract DocumentDTO toDTO();
 }
