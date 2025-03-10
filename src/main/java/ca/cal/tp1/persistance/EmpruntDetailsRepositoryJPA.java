@@ -1,5 +1,6 @@
 package ca.cal.tp1.persistance;
 
+import ca.cal.tp1.exceptions.DatabaseException;
 import ca.cal.tp1.modele.Emprunt;
 import ca.cal.tp1.modele.EmpruntDetails;
 import ca.cal.tp1.modele.Emprunteur;
@@ -30,7 +31,7 @@ public class EmpruntDetailsRepositoryJPA implements InterfaceRepository<EmpruntD
     }
 
     @Override
-    public EmpruntDetails get(Long id) {
+    public EmpruntDetails get(Long id) throws DatabaseException {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()){
             entityManager.getTransaction().begin();
             TypedQuery<EmpruntDetails> query = entityManager.createQuery(
@@ -41,12 +42,11 @@ public class EmpruntDetailsRepositoryJPA implements InterfaceRepository<EmpruntD
             entityManager.getTransaction().commit();
             return query.getSingleResult();
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new DatabaseException("EmpruntDetails not found");
         }
     }
 
-    public List<EmpruntDetails> get(Emprunt emprunt) {
+    public List<EmpruntDetails> get(Emprunt emprunt) throws DatabaseException {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()){
             entityManager.getTransaction().begin();
             TypedQuery<EmpruntDetails> query = entityManager.createQuery(
@@ -57,8 +57,7 @@ public class EmpruntDetailsRepositoryJPA implements InterfaceRepository<EmpruntD
             entityManager.getTransaction().commit();
             return query.getResultList();
         } catch (Exception e) {
-            e.printStackTrace();
-            return List.of();
+            throw new DatabaseException("EmpruntDetails not found");
         }
     }
 

@@ -1,5 +1,6 @@
 package ca.cal.tp1.service;
 
+import ca.cal.tp1.exceptions.DatabaseException;
 import ca.cal.tp1.modele.*;
 import ca.cal.tp1.persistance.InterfaceRepository;
 
@@ -25,8 +26,13 @@ public class EmprunteurService {
         return documentRepository.get(id);
     }
 
-    public void saveLivre(String titre, LocalDate anneePublication, int nombreExemplaire, String ISBN, String auteur, String editeur, int nombrePages) {
-        documentRepository.save(new Livre(titre, anneePublication, nombreExemplaire, ISBN, auteur, editeur, nombrePages));
+    public void saveLivre(String titre, LocalDate anneePublication, int nombreExemplaire, String ISBN, String auteur, String editeur, int nombrePages) throws DatabaseException {
+        try {
+            documentRepository.save(new Livre(titre, anneePublication, nombreExemplaire, ISBN, auteur, editeur, nombrePages));
+        }
+        catch (DatabaseException e){
+            System.out.println(e.getMessage());
+        }
     }
     public void saveDvd(String titre, LocalDate anneePublication, int nombreExemplaire, String directeur, int duree, String genre) {
         documentRepository.save(new Dvd(titre, anneePublication, nombreExemplaire, directeur, duree, genre));
@@ -72,17 +78,26 @@ public class EmprunteurService {
         for (int i = 0; i < idDocuments.toArray().length; i++) {
             Document documentCourant =  documentRepository.get(idDocuments.get(i));
             if(documentCourant.getNombreExemplaire() <= 0)
-                return;
+                throw new DatabaseException("Pas d'exemplaire disponible");
             EmpruntDetails empruntDetailsCourant = new EmpruntDetails(aujourdhui.plusWeeks(documentCourant.getDureeEmpruntSem()), "nouveau", emprunt, documentCourant);
             empruntDetails.add(empruntDetailsCourant);
         }
         empruntRepository.save(emprunt);
     }
 
-    public void getDocumentsEmprunteur(Long idEmprunteur){
-        Emprunteur emprunteur = emprunteurRepository.get(idEmprunteur);
-        List<Emprunt> emprunts = empruntRepository.get(emprunteur);
+    public void getDocumentsEmprunteur(Long idEmprunteur)throws DatabaseException{
 
+        Emprunteur emprunteur = null;
+
+        List<Emprunt> emprunts = new ArrayList<>();
+        try {
+            emprunteur = emprunteurRepository.get(idEmprunteur);
+            emprunts = empruntRepository.get(emprunteur);
+        }
+        catch (DatabaseException e){
+            System.out.println(e.getMessage());
+            return;
+        }
         for (Emprunt emprunt : emprunts) {
             System.out.println(emprunt.toDTO());
             if(emprunt.getEmprunteur().getId() == emprunteur.getId()){
@@ -93,6 +108,7 @@ public class EmprunteurService {
                 }
             }
         }
+
         System.out.println("\n \n");
     }
 }

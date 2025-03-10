@@ -1,5 +1,6 @@
 package ca.cal.tp1.persistance;
 
+import ca.cal.tp1.exceptions.DatabaseException;
 import ca.cal.tp1.modele.Document;
 import ca.cal.tp1.modele.Emprunt;
 import ca.cal.tp1.modele.Emprunteur;
@@ -15,22 +16,25 @@ public class DocumentRepositoryJPA implements InterfaceRepository<Document> {
     private final EntityManagerFactory entityManagerFactory=
             Persistence.createEntityManagerFactory("orders.pu");
     @Override
-    public void save(Document document) {
+    public void save(Document document) throws DatabaseException {
         try(EntityManager entityManager = entityManagerFactory.createEntityManager()){
             entityManager.getTransaction().begin();
-            if(get(document.getId()) != null){
+            try{
+                get(document.getId());
                 entityManager.merge(document);
-            }
-            else {
+            }catch(Exception e){
                 entityManager.persist(document);
             }
 
             entityManager.getTransaction().commit();
         }
+        catch (DatabaseException e){
+            throw new DatabaseException("Erreur lors de la sauvegarde du document");
+        }
     }
 
     @Override
-    public Document get(Long id) {
+    public Document get(Long id) throws DatabaseException{
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()){
             entityManager.getTransaction().begin();
             TypedQuery<Document> query = entityManager.createQuery(
@@ -41,8 +45,7 @@ public class DocumentRepositoryJPA implements InterfaceRepository<Document> {
             entityManager.getTransaction().commit();
             return query.getSingleResult();
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new DatabaseException("Document not found");
         }
     }
 
@@ -61,7 +64,7 @@ public class DocumentRepositoryJPA implements InterfaceRepository<Document> {
         return List.of();
     }
 
-    public List<Document> get(String titreSubString, LocalDate annePublication) {
+    public List<Document> get(String titreSubString, LocalDate annePublication) throws DatabaseException{
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()){
             entityManager.getTransaction().begin();
             TypedQuery<Document> query = entityManager.createQuery(
@@ -73,13 +76,12 @@ public class DocumentRepositoryJPA implements InterfaceRepository<Document> {
             entityManager.getTransaction().commit();
             return query.getResultList();
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new DatabaseException("Document not found");
         }
     }
 
     @Override
-    public List<Document> get(String titreSubString) {
+    public List<Document> get(String titreSubString) throws DatabaseException{
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()){
             entityManager.getTransaction().begin();
             TypedQuery<Document> query = entityManager.createQuery(
@@ -89,13 +91,12 @@ public class DocumentRepositoryJPA implements InterfaceRepository<Document> {
             entityManager.getTransaction().commit();
             return query.getResultList();
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new DatabaseException("Document not found");
         }
     }
 
     @Override
-    public List<Document> get(LocalDate annePublication) {
+    public List<Document> get(LocalDate annePublication) throws DatabaseException{
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()){
             entityManager.getTransaction().begin();
             TypedQuery<Document> query = entityManager.createQuery(
@@ -105,8 +106,7 @@ public class DocumentRepositoryJPA implements InterfaceRepository<Document> {
             entityManager.getTransaction().commit();
             return query.getResultList();
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new DatabaseException("Document not found");
         }
     }
 }

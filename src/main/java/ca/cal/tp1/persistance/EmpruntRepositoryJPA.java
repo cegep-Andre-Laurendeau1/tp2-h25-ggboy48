@@ -1,5 +1,6 @@
 package ca.cal.tp1.persistance;
 
+import ca.cal.tp1.exceptions.DatabaseException;
 import ca.cal.tp1.modele.Document;
 import ca.cal.tp1.modele.Emprunt;
 import ca.cal.tp1.modele.EmpruntDetails;
@@ -16,7 +17,7 @@ public class EmpruntRepositoryJPA implements InterfaceRepository<Emprunt> {
     private final EntityManagerFactory entityManagerFactory=
             Persistence.createEntityManagerFactory("orders.pu");
     @Override
-    public void save(Emprunt emprunt) {
+    public void save(Emprunt emprunt) throws DatabaseException {
         try(EntityManager entityManager = entityManagerFactory.createEntityManager()){
             entityManager.getTransaction().begin();
             Emprunt empruntSansDetails = new Emprunt(emprunt.getDateEmprunt(), emprunt.getStatus(), emprunt.getEmprunteur());
@@ -32,10 +33,13 @@ public class EmpruntRepositoryJPA implements InterfaceRepository<Emprunt> {
             }
             entityManager.getTransaction().commit();
         }
+        catch (Exception e) {
+            throw new DatabaseException("Erreur lors de la sauvegarde de l'emprunt");
+        }
     }
 
     @Override
-    public Emprunt get(Long id) {
+    public Emprunt get(Long id) throws DatabaseException{
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()){
             entityManager.getTransaction().begin();
             TypedQuery<Emprunt> query = entityManager.createQuery(
@@ -46,12 +50,11 @@ public class EmpruntRepositoryJPA implements InterfaceRepository<Emprunt> {
             entityManager.getTransaction().commit();
             return query.getSingleResult();
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new DatabaseException("Erreur lors de la récupération de l'emprunt");
         }
     }
 
-    public List<Emprunt> get(Emprunteur emprunteur) {
+    public List<Emprunt> get(Emprunteur emprunteur) throws DatabaseException {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()){
             entityManager.getTransaction().begin();
             TypedQuery<Emprunt> query = entityManager.createQuery(
@@ -62,8 +65,7 @@ public class EmpruntRepositoryJPA implements InterfaceRepository<Emprunt> {
             entityManager.getTransaction().commit();
             return query.getResultList();
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new DatabaseException("Erreur lors de la récupération de l'emprunt");
         }
     }
 

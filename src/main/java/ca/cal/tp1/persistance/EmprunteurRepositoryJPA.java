@@ -1,5 +1,6 @@
 package ca.cal.tp1.persistance;
 
+import ca.cal.tp1.exceptions.DatabaseException;
 import ca.cal.tp1.modele.Cd;
 import ca.cal.tp1.modele.Emprunt;
 import ca.cal.tp1.modele.Emprunteur;
@@ -16,17 +17,19 @@ public class EmprunteurRepositoryJPA implements InterfaceRepository<Emprunteur> 
     private final EntityManagerFactory entityManagerFactory=
             Persistence.createEntityManagerFactory("orders.pu");
     @Override
-    public void save(Emprunteur emprunteur) {
-
+    public void save(Emprunteur emprunteur) throws DatabaseException {
         try(EntityManager entityManager = entityManagerFactory.createEntityManager()){
             entityManager.getTransaction().begin();
             entityManager.persist(emprunteur);
             entityManager.getTransaction().commit();
         }
+        catch (Exception e) {
+            throw new DatabaseException("Erreur lors de la sauvegarde de l'emprunteur");
+        }
     }
 
     @Override
-    public Emprunteur get(Long id) {
+    public Emprunteur get(Long id) throws DatabaseException{
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()){
             entityManager.getTransaction().begin();
             TypedQuery<Emprunteur> query = entityManager.createQuery(
@@ -37,8 +40,7 @@ public class EmprunteurRepositoryJPA implements InterfaceRepository<Emprunteur> 
             entityManager.getTransaction().commit();
             return query.getSingleResult();
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new DatabaseException("Erreur lors de la récupération de l'emprunteur");
         }
     }
 
