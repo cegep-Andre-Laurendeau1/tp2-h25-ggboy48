@@ -17,4 +17,10 @@ public class DvdDTO extends DocumentDTO {
         this.rating = rating;
     }
 
+    @Override
+    public String toString() {
+        return "DvdDTO [Titre=" + getTitre() + ", Auteur=" + getAuteur() + ", Année=" + getAnneePublication() + ", directeur=" + directeur +
+                " , duree= " + duree + ", rating= " + rating + "]";
+    }
+
 }

@@ -20,7 +20,7 @@ public class DVD extends Document {
     private int dureeSemaineEmprunt=1;
 
 
-    public DVD(int id, String titre, String auteur, int anneePublication, int nbrInventaire,
+    public DVD(Integer id, String titre, String auteur, int anneePublication, int nbrInventaire,
               String directeur, int duree, String rating) {
         super(id,titre,auteur,anneePublication,nbrInventaire);
         this.directeur = directeur;

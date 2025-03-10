@@ -17,20 +17,39 @@ public class BibliothequeSystemService {
         this.emprunteurRepository= empruntRepository;
     }
 
-    public Document getDocument(String titre, String auteur, Integer anneePublication) throws DataErrorHandler{
+    public Document getDocument(String titre, String auteur, Integer anneePublication, String artiste, String directeur) throws DataErrorHandler {
         Document document = documentRepository.rechercheLivre(titre, auteur, anneePublication);
-        if (document == null) {
-            document = documentRepository.rechercheCd(titre, auteur);
+        if (document != null) {
+            System.out.println("Livre trouvé : " + document);
+        } else {
+            System.out.println("Aucun livre trouvé, recherche CD...");
         }
+
         if (document == null) {
-            document = documentRepository.rechercheDvd(titre, auteur);
+            document = documentRepository.rechercheCd(titre, artiste);
+            if (document != null) {
+                System.out.println("CD trouvé : " + document);
+            } else {
+                System.out.println("Aucun CD trouvé, recherche DVD...");
+            }
+        }
+
+        if (document == null) {
+            document = documentRepository.rechercheDvd(titre, directeur);
+            if (document != null) {
+                System.out.println("DVD trouvé : " + document);
+            }
         }
 
         return document;
     }
 
-    public DocumentDTO rechercherDocument(String titre, String auteur, Integer anneePublication) throws DataErrorHandler{
-        Document document = getDocument(titre, auteur, anneePublication);
+
+    public DocumentDTO rechercherDocument(String titre, String auteur, Integer anneePublication,String artiste, String directeur) throws DataErrorHandler{
+        Document document = getDocument(titre, auteur, anneePublication,artiste,directeur);
+        if(document == null) {
+            throw new DataErrorHandler("Erreur, on trouve pas");
+        }
         return DocumentDTO.toDto(document);
     }
 

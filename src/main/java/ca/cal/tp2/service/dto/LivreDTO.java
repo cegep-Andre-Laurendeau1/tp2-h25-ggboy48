@@ -7,6 +7,7 @@ import lombok.*;
 @Setter
 
 
+
 public class LivreDTO extends DocumentDTO {
     private String ISBN;
 
@@ -19,6 +20,12 @@ public class LivreDTO extends DocumentDTO {
         this.ISBN = ISBN;
         this.editeur = editeur;
         this.nbPages = nbPages;
+    }
+
+    @Override
+    public String toString() {
+        return "LivreDTO [Titre=" + getTitre() + ", Auteur=" + getAuteur() + ", Année=" + getAnneePublication() + ", ISBN=" + ISBN +
+                " , editeur= " + editeur + ", nbPages= " + nbPages + "]";
     }
 
 

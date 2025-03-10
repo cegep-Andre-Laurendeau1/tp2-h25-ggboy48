@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Data
 
+
 public class Prepose extends Utilisateur {
     private String role;
 

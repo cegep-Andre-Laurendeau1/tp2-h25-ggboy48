@@ -18,4 +18,10 @@ public class CdDTO extends DocumentDTO {
         this.duree = duree;
         this.genre = genre;
     }
+
+    @Override
+    public String toString() {
+        return "CdDTO [Titre=" + getTitre() + ", Auteur=" + getAuteur() + ", Année=" + getAnneePublication() + ", artiste=" + artiste +
+                " , duree= " + duree + ", genre= " + genre + "]";
+    }
 }
