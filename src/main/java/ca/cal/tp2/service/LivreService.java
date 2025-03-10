@@ -11,12 +11,5 @@ public class LivreService {
         this.livreRepository = livreRepository;
     }
 
-    public void createLivre(int id, String titre, String auteur, int anneePublication, int dureEmprunt, int nbInventaire ,String isbn, String editeur, int nbPages) throws DuplicateEntityException {
-        Livre livre = new Livre(id,titre, auteur, anneePublication, dureEmprunt, nbInventaire, isbn, editeur, nbPages);
-        livreRepository.save(livre);
-    }
 
-    public Livre findLivre(long id) {
-        return livreRepository.find(id);
-    }
 }

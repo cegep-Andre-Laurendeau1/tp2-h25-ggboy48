@@ -6,7 +6,8 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Table (name="Document")
 @DiscriminatorColumn(name = "type_document", discriminatorType = DiscriminatorType.STRING)
 @Data
 @NoArgsConstructor
@@ -15,19 +16,17 @@ public abstract class Document {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
     private String titre;
     private String auteur;
     private int anneePublication;
-    private int dureeEmprunt;
     private int nbrInventaires;
 
-    public Document(int id, String titre, String auteur, int anneePublication, int dureeEmprunt, int nbrInventaires) {
+    public Document(long id, String titre, String auteur, int anneePublication, int nbrInventaires) {
         this.id = id;
         this.titre = titre;
         this.auteur = auteur;
         this.anneePublication = anneePublication;
-        this.dureeEmprunt = dureeEmprunt;
         this.nbrInventaires = nbrInventaires;
     }
 
@@ -35,10 +34,4 @@ public abstract class Document {
         System.out.println("La disponibilité du document est vérifiée.");
     }
 
-    @Override
-    public String toString() {
-        return "Document [id=" + id + ", titre=" + titre + ", auteur=" + auteur +
-                ", anneePublication=" + anneePublication + ", dureeEmprunt=" + dureeEmprunt +
-                ", nbrInventaires=" + nbrInventaires + "]";
-    }
 }

@@ -15,18 +15,13 @@ import java.util.List;
 public class PreposeService {
     private final LivreService livreService;
     private final CDService cdService;
-    private final LivreRepository livreRepository;
-    private final CDRepository cdRepository;
-    private final DVDRepository dvdRepository;
-    private final DocumentRepository documentRepository;
+    private final DVDService dvdService;
 
-    public PreposeService(LivreService livreService, CDService cdService, LivreRepository livreRepository, CDRepository cdRepository, DVDRepository dvdRepository, DocumentRepository documentRepository) {
+
+    public PreposeService(LivreService livreService, CDService cdService,DVDService dvdService) {
         this.livreService = livreService;
         this.cdService = cdService;
-        this.livreRepository = livreRepository;
-        this.cdRepository = cdRepository;
-        this.dvdRepository = dvdRepository;
-        this.documentRepository = documentRepository;
+        this.dvdService = dvdService;
     }
 
     public void ajouterLivre(int id, String titre, String auteur, int anneePublication, int dureEmprunt, int nbInventaire ,String isbn, String editeur, int nbPages) throws DuplicateEntityException {
@@ -38,7 +33,7 @@ public class PreposeService {
         return livreService.findLivre(id);
     }
 
-
+/*
     public void ajouterCD(int id, String titre, String auteur, int anneePublication, int dureEmprunt, int nbInventaire, String artiste, int duree, String genre) {
         CD cd = new CD(id,titre,auteur,anneePublication,dureEmprunt,nbInventaire,artiste,duree,genre);
         documentRepository.saveDocument(cd);
@@ -56,5 +51,5 @@ public class PreposeService {
     public DVD getDVDById(int id) {
         return dvdRepository.getDvDById(id);
     }
-
+*/
 }

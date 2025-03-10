@@ -1,9 +1,17 @@
 package ca.cal.tp2.modele;
 
+import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Entity
+@Table
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@NoArgsConstructor
 @Data
 public abstract class Utilisateur {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private int id;
    private String nom;
    private String prenom;

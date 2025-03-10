@@ -1,5 +1,15 @@
 package ca.cal.tp2.modele;
 
+import jakarta.persistence.Entity;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Entity
+@NoArgsConstructor
+@Getter
+@Data
+
 public class Prepose extends Utilisateur {
     private String role;
 
@@ -10,12 +20,6 @@ public class Prepose extends Utilisateur {
 
     }
 
-    public String getRole() {
-        return role;
-    }
-    public void setRole(String role) {
-        this.role = role;
-    }
 
     //methode
     public void entreNouveauDocument(Document doc) {}
