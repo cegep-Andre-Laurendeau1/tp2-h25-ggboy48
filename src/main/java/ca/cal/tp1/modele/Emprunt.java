@@ -15,7 +15,7 @@ import java.util.*;
 @Getter
 public class Emprunt {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate dateEmprunt;
     private String status;

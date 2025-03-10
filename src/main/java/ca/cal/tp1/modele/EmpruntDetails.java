@@ -1,10 +1,7 @@
 package ca.cal.tp1.modele;
 
 import ca.cal.tp1.service.DTO.EmpruntDetailDTO;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +15,7 @@ import java.time.LocalDate;
 @Getter
 public class EmpruntDetails {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate dateRetourPrevue;
     private LocalDate dateRetourActuelle;
