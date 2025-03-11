@@ -34,10 +34,4 @@ public class Emprunteur extends Utilisateur {
 
 
 
-    //methode
-    public void emprunte(Document document){}
-    public void retourneDocument(Document document){}
-    public void payerAmende(Double amende){}
-    public void rapportHistoriqueEmprunt(){}
-
 }

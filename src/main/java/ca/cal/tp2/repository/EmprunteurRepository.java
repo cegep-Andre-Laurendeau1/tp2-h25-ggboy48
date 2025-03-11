@@ -6,5 +6,5 @@ import jakarta.persistence.EntityNotFoundException;
 
 public interface EmprunteurRepository {
     void save(Emprunteur emp) throws DuplicateEntityException;
-    Emprunteur getByEmail(String nom, String prenom,String email) throws EntityNotFoundException;
+    Emprunteur getByNomPrenomEmail(String nom, String prenom,String email) throws EntityNotFoundException;
 }

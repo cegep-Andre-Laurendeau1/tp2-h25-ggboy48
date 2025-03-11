@@ -22,11 +22,4 @@ public class Prepose extends Utilisateur {
     }
 
 
-    //methode
-    public void entreNouveauDocument(Document doc) {}
-    public void collectAmendes(Emprunteur emprunteur,double amendes){}
-    public void rapportAmendes(){}
-    public void rappostEmprunts(){}
-
-
 }

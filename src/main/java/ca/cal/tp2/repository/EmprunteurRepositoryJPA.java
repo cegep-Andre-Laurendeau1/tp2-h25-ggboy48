@@ -2,10 +2,7 @@ package ca.cal.tp2.repository;
 
 import ca.cal.tp2.exception.DuplicateEntityException;
 import ca.cal.tp2.modele.Emprunteur;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityNotFoundException;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.*;
 
 public class EmprunteurRepositoryJPA implements EmprunteurRepository {
     private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("alrik.pu");
@@ -22,21 +19,30 @@ public class EmprunteurRepositoryJPA implements EmprunteurRepository {
     }
 
     @Override
-    public Emprunteur getByEmail(String nom,String prenom, String email) throws EntityNotFoundException {
-
-        // Vérification des paramètres
-        System.out.println("Recherche l'emprunteur avec les paramètres :");
-        System.out.println("nom : " + nom);
-        System.out.println("prenom : " + prenom);
-        System.out.println("Email : " + email);
-
-
+    public Emprunteur getByNomPrenomEmail(String nom, String prenom, String email) throws EntityNotFoundException {
         try (EntityManager em = emf.createEntityManager()) {
-            Emprunteur emprunteur = em.find(Emprunteur.class, email);
-            if (emprunteur == null) {
-                throw new EntityNotFoundException("Emprunteur non trouvé avec le courriel : " + email);
+            TypedQuery<Emprunteur> query = em.createQuery(
+                    "SELECT e FROM Emprunteur e " +
+                            "LEFT JOIN FETCH e.emprunts " +  // Charge les emprunts en même temps
+                            "LEFT JOIN FETCH e.amendes " +  // Charge aussi les amendes
+                            "WHERE e.nom = :nom AND e.prenom = :prenom AND e.email = :email",
+                    Emprunteur.class
+            );
+
+            query.setParameter("nom", nom);
+            query.setParameter("prenom", prenom);
+            query.setParameter("email", email);
+
+            try {
+                return query.getSingleResult();
+            } catch (NoResultException e) {
+                throw new EntityNotFoundException("Emprunteur non trouvé avec ces informations.");
             }
-            return emprunteur;
         }
     }
+
+
+
+
+
 }

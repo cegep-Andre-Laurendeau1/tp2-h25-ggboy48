@@ -2,12 +2,15 @@ package ca.cal.tp2;
 
 import ca.cal.tp2.exception.DataErrorHandler;
 import ca.cal.tp2.exception.DuplicateEntityException;
+import ca.cal.tp2.modele.Emprunteur;
 import ca.cal.tp2.repository.DocumentRepositoryJPA;
 import ca.cal.tp2.repository.EmpruntRepositoryJPA;
 import ca.cal.tp2.repository.EmprunteurRepositoryJPA;
 import ca.cal.tp2.service.BibliothequeSystemService;
 import ca.cal.tp2.service.PreposeService;
 import ca.cal.tp2.service.dto.DocumentDTO;
+import ca.cal.tp2.service.dto.EmprunteurDTO;
+import ca.cal.tp2.service.dto.UtilisateurDTO;
 import ca.cal.tp2.utils.TcpServer;
 
 import javax.print.Doc;
@@ -21,17 +24,22 @@ public class Main {
         final BibliothequeSystemService bibliothequeSystemService = new BibliothequeSystemService(new DocumentRepositoryJPA(), new EmprunteurRepositoryJPA());
 
         try {
+
+            //Ajouter un livre
             preposeService.ajouteLivre("Harry Potter 3", "JK Rowling", 1998, 4, "2325ER3", "Google", 340);
             DocumentDTO livre1 = bibliothequeSystemService.rechercherDocument("Harry Potter 3", "JK Rowling", null,null,null);
             System.out.println(livre1);
 
+            //Ajouter un CD
             preposeService.ajouteCD("Billy Jean", "Michael Jackson", 1985, 4, "Michael Jackson", 90, "Pop");
             DocumentDTO cd1 = bibliothequeSystemService.rechercherDocument("Billy Jean", null ,1985,"Michael Jackson",null);
             System.out.println(cd1);
 
+            //Ajouter un DVD
             preposeService.ajouteDVD("Jaws","John Smith",1974,2,"Ellen Mark",150,"Classic");
             DocumentDTO dvd1 = bibliothequeSystemService.rechercherDocument("Jaws",null,1974,null,"Ellen Mark");
 
+            //Ajouter un utilisateur
             preposeService.ajouteEmprunteur("Leung","Alrik","alrikleung12@hotmail.com","5146598132");
 
 

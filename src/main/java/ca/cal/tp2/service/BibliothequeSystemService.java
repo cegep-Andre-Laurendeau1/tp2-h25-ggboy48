@@ -2,11 +2,14 @@ package ca.cal.tp2.service;
 
 import ca.cal.tp2.exception.DataErrorHandler;
 import ca.cal.tp2.modele.Document;
+import ca.cal.tp2.modele.Emprunteur;
+import ca.cal.tp2.modele.Utilisateur;
 import ca.cal.tp2.repository.DocumentRepositoryJPA;
 import ca.cal.tp2.repository.EmpruntRepository;
 import ca.cal.tp2.repository.EmpruntRepositoryJPA;
 import ca.cal.tp2.repository.EmprunteurRepositoryJPA;
 import ca.cal.tp2.service.dto.DocumentDTO;
+import ca.cal.tp2.service.dto.UtilisateurDTO;
 
 public class BibliothequeSystemService {
     private final DocumentRepositoryJPA documentRepository;
@@ -52,6 +55,22 @@ public class BibliothequeSystemService {
         }
         return DocumentDTO.toDto(document);
     }
+
+
+
+    public UtilisateurDTO rechercheEmprunteur(String nom ,String prenom, String email) throws DataErrorHandler {
+        Utilisateur emprunteur = getEmprunteur(nom,prenom,email);
+        if(emprunteur == null) {
+            throw new DataErrorHandler("Erreur, on trouve pas");
+        }
+        return UtilisateurDTO.toDto(emprunteur);
+    }
+
+    public Emprunteur getEmprunteur(String nom, String prenom, String email) throws DataErrorHandler {
+        return emprunteurRepository.getByNomPrenomEmail(nom, prenom, email);
+    }
+
+
 
 }
 

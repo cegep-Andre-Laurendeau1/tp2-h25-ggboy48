@@ -30,8 +30,5 @@ public abstract class Document {
         this.nbrInventaires = nbrInventaires;
     }
 
-    public void verifierDisponible() {
-        System.out.println("La disponibilité du document est vérifiée.");
-    }
 
 }

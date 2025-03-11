@@ -12,6 +12,7 @@ import java.util.Set;
 @Entity
 @Data
 @Getter
+@Table (name="Emprunts")
 @NoArgsConstructor
 public class Emprunt {
 
