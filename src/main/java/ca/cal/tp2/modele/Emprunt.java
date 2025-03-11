@@ -41,11 +41,11 @@ public class Emprunt {
     }
 
 
-    public void getItems(EmpruntDetail empruntDetail) {
+    public Set<EmpruntDetail> getItems() {
         if (this.empruntsDocuments == null) {
             this.empruntsDocuments = new HashSet<>();
         }
-        this.empruntsDocuments.add(empruntDetail);
+        return empruntsDocuments;
     }
 
 

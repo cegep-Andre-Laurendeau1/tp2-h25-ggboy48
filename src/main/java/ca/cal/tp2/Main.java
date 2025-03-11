@@ -27,39 +27,39 @@ public class Main {
 
         try {
 
-            //Ajouter un livre
+            //Ajouter un livre et chercher le livre
             preposeService.ajouteLivre("Harry Potter 3", "JK Rowling", 1998, 4, "2325ER3", "Google", 340);
             DocumentDTO livre1 = bibliothequeSystemService.rechercherDocument("Harry", "JK Rowling", null,null,null);
             System.out.println(livre1);
 
-            //Ajouter un CD
+            //Ajouter un CD et chercher le livre
             preposeService.ajouteCD("Billy Jean", "Michael Jackson", 1985, 4, "Michael Jackson", 90, "Pop");
             DocumentDTO cd1 = bibliothequeSystemService.rechercherDocument("Billy", null ,1985,"Michael Jackson",null);
             System.out.println(cd1);
 
-            //Ajouter un DVD
+            //Ajouter un DVD et chercher le livre
             preposeService.ajouteDVD("Jaws","John Smith",1974,2,"Ellen Mark",150,"Classic");
             DocumentDTO dvd1 = bibliothequeSystemService.rechercherDocument("Jaws",null,1974,null,"Ellen Mark");
 
-            //Ajouter un utilisateur
+            //Ajouter un utilisateur et chercher le  utilisateur
             preposeService.ajouteEmprunteur("Leung","Alrik","alrikleung12@hotmail.com","5146598132");
             UtilisateurDTO utilisateurDTO = bibliothequeSystemService.rechercheEmprunteur("Leung","Alrik","alrikleung12@hotmail.com");
             System.out.println(utilisateurDTO);
 
             // Emprunter des documents en utilisant le service
-            Emprunteur emprunteur = new Emprunteur(1, "Leung", "Alrik", "alrikleung12@hotmail.com","5146598132"); // Récupération de l'emprunteur
+            Emprunteur emprunteur = new Emprunteur(1, "Leung", "Alrik", "alrikleung12@hotmail.com","5146598132");
             List<Document> documents = List.of(
-                    new Livre(1, "Harry Potter 3", "JK Rowling", 1998, 4, "2325ER3", "Google", 340),  // Utiliser Livre au lieu de Document
-                    new CD(2, "Billy Jean", "Michael Jackson", 1985, 4, "Michael Jackson", 90, "Pop")  // Utiliser CD au lieu de Document
+                    new Livre(1, "Harry Potter 3", "JK Rowling", 1998, 4, "2325ER3", "Google", 340),
+                    new CD(2, "Billy Jean", "Michael Jackson", 1985, 4, "Michael Jackson", 90, "Pop")
             );
 
             // Utilisation du service pour emprunter des documents
             bibliothequeSystemService.emprunterDocuments("Leung", "Alrik", "alrikleung12@hotmail.com", documents);
-
             System.out.println("Emprunt réalisé pour l'emprunteur " + emprunteur.getNom() + " " + emprunteur.getPrenom() + " :");
             for (Document document : documents) {
                 System.out.println("Document emprunté : " + document.getTitre());
             }
+
 
 
         } catch (DuplicateEntityException e) {

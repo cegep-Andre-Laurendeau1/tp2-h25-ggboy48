@@ -10,9 +10,12 @@ import ca.cal.tp2.repository.EmprunteurRepositoryJPA;
 import ca.cal.tp2.service.dto.DocumentDTO;
 import ca.cal.tp2.service.dto.UtilisateurDTO;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.transaction.annotation.Transactional;
+import org.hibernate.Hibernate;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class BibliothequeSystemService {
@@ -94,7 +97,7 @@ public class BibliothequeSystemService {
                 // Calculer la date de retour prévue
                 LocalDate dateRetourPrevue = calculerDateRetour(document, dateEmprunt);
                 EmpruntDetail empruntDetail = new EmpruntDetail(null, dateRetourPrevue, null, "En cours", emprunt, document);
-                emprunt.getItems(empruntDetail);
+                emprunt.getItems();
             }
 
             emprunteur.getEmprunts().add(emprunt);
@@ -117,6 +120,23 @@ public class BibliothequeSystemService {
             dateRetourPrevue = dateEmprunt.plusWeeks(1); // Pour un DVD : 1 semaine
         }
         return dateRetourPrevue;
+    }
+
+
+    @Transactional
+    public List<EmpruntDetail> obtenirEmprunts(String nom, String prenom, String email) throws DataErrorHandler {
+        Emprunteur emprunteur = emprunteurRepository.getByNomPrenomEmail(nom, prenom, email);
+        if (emprunteur == null) {
+            throw new DataErrorHandler("Emprunteur non trouvé !");
+        }
+
+        Hibernate.initialize(emprunteur.getEmprunts());
+        emprunteur.getEmprunts().forEach(emprunt -> Hibernate.initialize(emprunt.getItems()));
+
+        return emprunteur.getEmprunts()
+                .stream()
+                .flatMap(emprunt -> emprunt.getItems().stream())
+                .collect(Collectors.toList());
     }
 
 
