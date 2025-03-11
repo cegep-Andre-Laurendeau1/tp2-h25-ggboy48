@@ -22,8 +22,17 @@ public class Main {
     public static void main(String[] args) throws SQLException, InterruptedException, DuplicateEntityException {
         TcpServer.startTcpServer();
 
-        final PreposeService preposeService = new PreposeService(new DocumentRepositoryJPA(), new EmpruntRepositoryJPA(),new EmprunteurRepositoryJPA());
-        final BibliothequeSystemService bibliothequeSystemService = new BibliothequeSystemService(new DocumentRepositoryJPA(), new EmprunteurRepositoryJPA(),new EmpruntRepositoryJPA());
+        final PreposeService preposeService = new PreposeService(
+                new DocumentRepositoryJPA(),
+                new EmpruntRepositoryJPA(),
+                new EmprunteurRepositoryJPA()
+        );
+
+        final BibliothequeSystemService bibliothequeSystemService = new BibliothequeSystemService(
+                new DocumentRepositoryJPA(),
+                new EmprunteurRepositoryJPA(),
+                new EmpruntRepositoryJPA()
+        );
 
         try {
 
@@ -57,7 +66,7 @@ public class Main {
             bibliothequeSystemService.emprunterDocuments("Leung", "Alrik", "alrikleung12@hotmail.com", documents);
             System.out.println("Emprunt réalisé pour l'emprunteur " + emprunteur.getNom() + " " + emprunteur.getPrenom() + " :");
             for (Document document : documents) {
-                System.out.println("Document emprunté : " + document.getTitre());
+                System.out.println("Document emprunté : " + document.getTitre() + " , durée emprunt(jours): " + document.getDureeEmprunt());
             }
 
 

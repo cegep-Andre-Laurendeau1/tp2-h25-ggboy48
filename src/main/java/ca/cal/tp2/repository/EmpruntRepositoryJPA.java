@@ -36,14 +36,12 @@ public class EmpruntRepositoryJPA implements EmpruntRepository {
     }
 
 
-
-
     @Override
     public Emprunt getEmpruntById(int id) throws EntityNotFoundException {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             Emprunt emprunt = entityManager.find(Emprunt.class, id);
             if (emprunt == null) {
-                throw new EntityNotFoundException("Emprunt with ID " + id + " not found.");
+                throw new EntityNotFoundException("Emprunt avec ce ID " + id + " nest pas trouvé.");
             }
             return emprunt;
         }

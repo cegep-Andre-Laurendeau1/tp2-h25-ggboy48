@@ -113,31 +113,29 @@ public class BibliothequeSystemService {
     private LocalDate calculerDateRetour(Document document, LocalDate dateEmprunt) {
         LocalDate dateRetourPrevue = dateEmprunt;
         if (document instanceof Livre) {
-            dateRetourPrevue = dateEmprunt.plusWeeks(3); // Pour un livre : 3 semaines
+            dateRetourPrevue = dateEmprunt.plusDays(21);
         } else if (document instanceof CD) {
-            dateRetourPrevue = dateEmprunt.plusWeeks(2); // Pour un CD : 2 semaines
+            dateRetourPrevue = dateEmprunt.plusDays(14);
         } else if (document instanceof DVD) {
-            dateRetourPrevue = dateEmprunt.plusWeeks(1); // Pour un DVD : 1 semaine
+            dateRetourPrevue = dateEmprunt.plusDays(7);
         }
         return dateRetourPrevue;
     }
 
+    @Transactional
+    public Emprunt getEmpruntById(int id) throws DataErrorHandler {
+        try {
+            return empruntRepository.getEmpruntById(id);
+        } catch (EntityNotFoundException e) {
+            throw new DataErrorHandler("Emprunt non trouvé avec l'ID : " + id);
+        }
+    }
 
     @Transactional
-    public List<EmpruntDetail> obtenirEmprunts(String nom, String prenom, String email) throws DataErrorHandler {
-        Emprunteur emprunteur = emprunteurRepository.getByNomPrenomEmail(nom, prenom, email);
-        if (emprunteur == null) {
-            throw new DataErrorHandler("Emprunteur non trouvé !");
-        }
-
-        Hibernate.initialize(emprunteur.getEmprunts());
-        emprunteur.getEmprunts().forEach(emprunt -> Hibernate.initialize(emprunt.getItems()));
-
-        return emprunteur.getEmprunts()
-                .stream()
-                .flatMap(emprunt -> emprunt.getItems().stream())
-                .collect(Collectors.toList());
+    public List<Emprunt> obtenirTousLesEmprunts() {
+        return empruntRepository.getAllEmprunts();
     }
+
 
 
 
