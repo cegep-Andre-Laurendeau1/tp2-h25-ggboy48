@@ -27,12 +27,12 @@ public class Main {
 
             //Ajouter un livre
             preposeService.ajouteLivre("Harry Potter 3", "JK Rowling", 1998, 4, "2325ER3", "Google", 340);
-            DocumentDTO livre1 = bibliothequeSystemService.rechercherDocument("Harry Potter 3", "JK Rowling", null,null,null);
+            DocumentDTO livre1 = bibliothequeSystemService.rechercherDocument("Harry", "JK Rowling", null,null,null);
             System.out.println(livre1);
 
             //Ajouter un CD
             preposeService.ajouteCD("Billy Jean", "Michael Jackson", 1985, 4, "Michael Jackson", 90, "Pop");
-            DocumentDTO cd1 = bibliothequeSystemService.rechercherDocument("Billy Jean", null ,1985,"Michael Jackson",null);
+            DocumentDTO cd1 = bibliothequeSystemService.rechercherDocument("Billy", null ,1985,"Michael Jackson",null);
             System.out.println(cd1);
 
             //Ajouter un DVD
@@ -41,6 +41,8 @@ public class Main {
 
             //Ajouter un utilisateur
             preposeService.ajouteEmprunteur("Leung","Alrik","alrikleung12@hotmail.com","5146598132");
+            UtilisateurDTO emprunteurDTO = bibliothequeSystemService.rechercheEmprunteur("Leung","Alrik","alrikleung12@hotmail.com");
+            System.out.println(emprunteurDTO);
 
 
         } catch (DuplicateEntityException e) {
