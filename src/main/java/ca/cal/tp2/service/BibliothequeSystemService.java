@@ -76,25 +76,24 @@ public class BibliothequeSystemService {
     }
 
 
-
     public void emprunterDocuments(String nom, String prenom, String email, List<Document> documents) throws DataErrorHandler {
         try {
-
             Emprunteur emprunteur = emprunteurRepository.getByNomPrenomEmail(nom, prenom, email);
             if (emprunteur == null) {
                 throw new DataErrorHandler("Emprunteur non trouvé !");
             }
 
             LocalDate dateEmprunt = LocalDate.now();
-            Emprunt emprunt = new Emprunt(0, dateEmprunt, emprunteur);
+            Emprunt emprunt = new Emprunt(null, dateEmprunt, emprunteur);
 
             for (Document document : documents) {
                 if (document.getNbrInventaires() <= 0) {
-                    throw new DataErrorHandler("Pas disponibles pour le document : " + document.getTitre());
+                    throw new DataErrorHandler("Plus de copies disponibles pour le document : " + document.getTitre());
                 }
 
+                // Calculer la date de retour prévue
                 LocalDate dateRetourPrevue = calculerDateRetour(document, dateEmprunt);
-                EmpruntDetail empruntDetail = new EmpruntDetail(0, dateRetourPrevue, null, "En cours", emprunt, document);
+                EmpruntDetail empruntDetail = new EmpruntDetail(null, dateRetourPrevue, null, "En cours", emprunt, document);
                 emprunt.getItems(empruntDetail);
             }
 
@@ -106,6 +105,7 @@ public class BibliothequeSystemService {
             throw new RuntimeException(e);
         }
     }
+
 
     private LocalDate calculerDateRetour(Document document, LocalDate dateEmprunt) {
         LocalDate dateRetourPrevue = dateEmprunt;

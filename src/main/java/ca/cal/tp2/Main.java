@@ -62,8 +62,6 @@ public class Main {
             }
 
 
-
-
         } catch (DuplicateEntityException e) {
             System.out.println(e.getMessage());
         } catch (DataErrorHandler e) {

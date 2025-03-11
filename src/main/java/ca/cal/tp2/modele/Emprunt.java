@@ -27,11 +27,11 @@ public class Emprunt {
 
     private String status;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "id_emprunteur", nullable = false)
     private Emprunteur emprunteur;
 
-    @OneToMany(mappedBy = "emprunt", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "emprunt", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
     private Set<EmpruntDetail> empruntsDocuments;
 
     public Emprunt(Integer id,LocalDate dateEmprunt, Emprunteur emprunteur) {
