@@ -22,6 +22,8 @@ public abstract class Document {
     private int anneePublication;
     private int nbrInventaires;
 
+    public abstract int getDureeEmprunt();
+
     public Document(Integer id, String titre, String auteur, int anneePublication, int nbrInventaires) {
         this.id = id;
         this.titre = titre;

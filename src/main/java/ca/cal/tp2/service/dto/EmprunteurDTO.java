@@ -3,6 +3,7 @@ package ca.cal.tp2.service.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -13,6 +14,7 @@ public class EmprunteurDTO extends UtilisateurDTO{
 
     public EmprunteurDTO(Integer id, String nom, String prenom, String email, String phone) {
         super(id, nom, prenom, email, phone);
+        this.empruntsIds = new ArrayList<>();
     }
 
     @Override

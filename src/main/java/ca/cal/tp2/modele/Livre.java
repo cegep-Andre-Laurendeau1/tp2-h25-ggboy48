@@ -24,7 +24,12 @@ public class Livre extends Document {
 
     private int nbPages;
 
-    private int dureeSemaineEmprunt = 3;
+    private int dureeEmprunt = 21;
+
+    @Override
+    public int getDureeEmprunt() {
+        return dureeEmprunt;
+    }
 
 
     public Livre(Integer id, String titre, String auteur, int anneePublication, int nbrInventaire,

@@ -17,7 +17,12 @@ public class DVD extends Document {
     private String directeur;
     private int duree;
     private String rating;
-    private int dureeSemaineEmprunt=1;
+    private int dureeEmprunt=7;
+
+    @Override
+    public int getDureeEmprunt() {
+        return dureeEmprunt;
+    }
 
 
     public DVD(Integer id, String titre, String auteur, int anneePublication, int nbrInventaire,

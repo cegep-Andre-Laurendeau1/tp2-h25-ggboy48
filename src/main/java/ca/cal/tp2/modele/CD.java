@@ -17,7 +17,12 @@ public class CD extends Document  {
     private String artiste;
     private int duree;
     private String genre;
-    private int dureeSemaineEmprunt = 2;
+    private int dureeEmprunt = 14;
+
+    @Override
+    public int getDureeEmprunt() {
+        return dureeEmprunt;
+    }
 
 
     public CD(Integer id, String titre, String auteur, int anneePublication,  int nbrInventaire,

@@ -4,9 +4,11 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -16,25 +18,50 @@ import java.util.Set;
 @NoArgsConstructor
 public class Emprunt {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Integer id;
+
     private LocalDate dateEmprunt;
 
-    @ManyToOne
-    @JoinColumn(name="id_emprunteur")
+    private String status;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "id_emprunteur", nullable = false)
     private Emprunteur emprunteur;
 
-    @OneToMany(mappedBy = "emprunt", cascade = CascadeType.PERSIST)
-    private Set<EmpruntDocument> empruntsDocuments;
+    @OneToMany(mappedBy = "emprunt", cascade = CascadeType.ALL)
+    private Set<EmpruntDetail> empruntsDocuments;
 
-    public Emprunt(long id, LocalDate dateEmprunt, Emprunteur emprunteur) {
+    public Emprunt(Integer id,LocalDate dateEmprunt, Emprunteur emprunteur) {
         this.id = id;
         this.dateEmprunt = dateEmprunt;
         this.emprunteur = emprunteur;
     }
 
-    public void ajouterEmpruntDetail(EmpruntDocument empruntDocument) {
-        this.empruntsDocuments.add(empruntDocument);
+
+    public void getItems(EmpruntDetail empruntDetail) {
+        if (this.empruntsDocuments == null) {
+            this.empruntsDocuments = new HashSet<>();
+        }
+        this.empruntsDocuments.add(empruntDetail);
     }
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, dateEmprunt, status); // Ne pas inclure `emprunteur` ou `empruntsDocuments`
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Emprunt emprunt = (Emprunt) obj;
+        return Objects.equals(id, emprunt.id) &&
+                Objects.equals(dateEmprunt, emprunt.dateEmprunt) &&
+                Objects.equals(status, emprunt.status);
+    }
+
 }
