@@ -59,10 +59,4 @@ public class Cd extends Document{
                 ", dureeEmpruntSem=" + dureeEmpruntSem +
                 '}';
     }
-
-    @Override
-    public DocumentDTO toDTO() {
-        return new CdDTO(getTitre(), getAnneePublication(),artiste, duree, genre);
-    }
-
 }

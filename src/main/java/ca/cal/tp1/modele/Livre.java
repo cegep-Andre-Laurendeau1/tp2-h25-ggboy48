@@ -5,6 +5,7 @@ import ca.cal.tp1.service.DTO.DocumentDTO;
 import ca.cal.tp1.service.DTO.LivreDTO;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 public class Livre extends Document {
 
     private String ISBN;
@@ -68,10 +70,5 @@ public class Livre extends Document {
                 ", nombrePages=" + nombrePages +
                 ", dureeEmpruntSem=" + dureeEmpruntSem +
                 '}';
-    }
-
-    @Override
-    public DocumentDTO toDTO() {
-        return new LivreDTO(getTitre(), getAnneePublication(), ISBN, auteur, editeur, nombrePages);
     }
 }

@@ -63,8 +63,4 @@ public class EmpruntDetails {
                 ", status='" + status + '\'' +
                 '}';
     }
-
-    public EmpruntDetailDTO toDTO() {
-        return new EmpruntDetailDTO(this.dateRetourPrevue, this.dateRetourActuelle, this.status, this.emprunt, this.document);
-    }
 }

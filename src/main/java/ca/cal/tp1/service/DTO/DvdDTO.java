@@ -1,5 +1,6 @@
 package ca.cal.tp1.service.DTO;
 
+import ca.cal.tp1.modele.Dvd;
 import lombok.Getter;
 
 import java.time.LocalDate;
@@ -26,5 +27,8 @@ public class DvdDTO extends DocumentDTO{
                 ", genre='" + genre + '\'' +
                 ", dureeEmpruntSem=" + dureeEmpruntSem +
                 '}';
+    }
+    public DvdDTO toDTO(Dvd dvd){
+        return new DvdDTO(dvd.getTitre(), dvd.getAnneePublication(), dvd.getDirecteur(), dvd.getDuree(), dvd.getGenre());
     }
 }

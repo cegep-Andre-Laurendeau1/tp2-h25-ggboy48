@@ -42,8 +42,4 @@ public class Emprunt {
                 ", status='" + status + '\'' +
                 '}';
     }
-
-    public EmpruntDTO toDTO() {
-        return new EmpruntDTO(this.dateEmprunt, this.status, this.emprunteur);
-    }
 }

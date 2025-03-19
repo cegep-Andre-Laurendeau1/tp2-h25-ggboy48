@@ -1,5 +1,7 @@
 package ca.cal.tp1.service.DTO;
 
+import ca.cal.tp1.modele.Livre;
+
 import java.time.LocalDate;
 
 public class LivreDTO extends DocumentDTO{
@@ -27,5 +29,8 @@ public class LivreDTO extends DocumentDTO{
                 ", nombrePages=" + nombrePages +
                 ", dureeEmpruntSem=" + dureeEmpruntSem +
                 '}';
+    }
+    public LivreDTO toDTO(Livre livre){
+        return new LivreDTO(livre.getTitre(), livre.getAnneePublication(), livre.getISBN(), livre.getAuteur(), livre.getEditeur(), livre.getNombrePages());
     }
 }

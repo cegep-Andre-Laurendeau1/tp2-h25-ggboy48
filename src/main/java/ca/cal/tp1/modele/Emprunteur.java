@@ -6,11 +6,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
+@Getter
 @NoArgsConstructor
 public class Emprunteur extends Utilisateur {
     @OneToMany(mappedBy = "emprunteur", cascade = CascadeType.ALL)
@@ -21,7 +23,4 @@ public class Emprunteur extends Utilisateur {
         super(nom, email, numTelephone);
     }
 
-    public EmprunteurDTO toDTO() {
-        return new EmprunteurDTO(this.getNom(), this.getEmail(), this.getNumTelephone());
-    }
 }

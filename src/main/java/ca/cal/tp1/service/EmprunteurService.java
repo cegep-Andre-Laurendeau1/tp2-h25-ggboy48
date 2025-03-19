@@ -3,6 +3,9 @@ package ca.cal.tp1.service;
 import ca.cal.tp1.exceptions.DatabaseException;
 import ca.cal.tp1.modele.*;
 import ca.cal.tp1.persistance.InterfaceRepository;
+import ca.cal.tp1.service.DTO.DocumentDTO;
+import ca.cal.tp1.service.DTO.EmpruntDTO;
+import ca.cal.tp1.service.DTO.EmpruntDetailDTO;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -53,20 +56,23 @@ public class EmprunteurService {
     }
     public void rechercheDocument(String titreSubString, LocalDate anneePublication) {
         List<Document> documents = documentRepository.get(titreSubString, anneePublication);
+        DocumentDTO documentDTO = new DocumentDTO();
         for (Document document : documents) {
-            System.out.println(document.toDTO());
+            System.out.println(documentDTO.toDTO(document));
         }
     }
     public void rechercheDocument(String titreSubString) {
         List<Document> documents = documentRepository.get(titreSubString);
+        DocumentDTO documentDTO = new DocumentDTO();
         for (Document document : documents) {
-            System.out.println(document.toDTO());
+            System.out.println(documentDTO.toDTO(document));
         }
     }
     public void rechercheDocument(LocalDate anneePublication) {
         List<Document> documents = documentRepository.get(anneePublication);
+        DocumentDTO documentDTO = new DocumentDTO();
         for (Document document : documents) {
-            System.out.println(document.toDTO());
+            System.out.println(documentDTO.toDTO(document));
         }
     }
 
@@ -90,6 +96,9 @@ public class EmprunteurService {
         Emprunteur emprunteur = null;
 
         List<Emprunt> emprunts = new ArrayList<>();
+        EmpruntDTO empruntDTO = new EmpruntDTO();
+        EmpruntDetailDTO empruntDetailDTO = new EmpruntDetailDTO();
+        DocumentDTO documentDTO = new DocumentDTO();
         try {
             emprunteur = emprunteurRepository.get(idEmprunteur);
             emprunts = empruntRepository.get(emprunteur);
@@ -99,12 +108,12 @@ public class EmprunteurService {
             return;
         }
         for (Emprunt emprunt : emprunts) {
-            System.out.println(emprunt.toDTO());
+            System.out.println(empruntDTO.toDTO(emprunt));
             if(emprunt.getEmprunteur().getId() == emprunteur.getId()){
                 List<EmpruntDetails> empruntDetails = empruntDetailsRepository.get(emprunt);
                 for (EmpruntDetails empruntDetail : empruntDetails) {
-                    System.out.println(empruntDetail.toDTO());
-                    System.out.println(empruntDetail.getDocument().toDTO());
+                    System.out.println(empruntDetailDTO.toDTO(empruntDetail));
+                    System.out.println(documentDTO.toDTO(empruntDetail.getDocument()));
                 }
             }
         }

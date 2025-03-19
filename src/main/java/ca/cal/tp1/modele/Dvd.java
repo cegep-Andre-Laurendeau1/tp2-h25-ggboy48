@@ -58,9 +58,4 @@ public class Dvd extends Document{
                 ", dureeEmpruntSem=" + dureeEmpruntSem +
                 '}';
     }
-
-    @Override
-    public DocumentDTO toDTO() {
-        return new DvdDTO( getTitre(), getAnneePublication(),directeur,  duree, genre);
-    }
 }

@@ -56,5 +56,4 @@ public abstract class Document {
                 ", nombreExemplaire=" + nombreExemplaire +
                 '}';
     }
-    public abstract DocumentDTO toDTO();
 }

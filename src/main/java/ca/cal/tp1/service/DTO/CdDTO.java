@@ -1,5 +1,7 @@
 package ca.cal.tp1.service.DTO;
 
+import ca.cal.tp1.modele.Cd;
+
 import java.time.LocalDate;
 
 public class CdDTO extends DocumentDTO {
@@ -25,5 +27,8 @@ public class CdDTO extends DocumentDTO {
                 ", genre='" + genre + '\'' +
                 ", dureeEmpruntSem=" + dureeEmpruntSem +
                 '}';
+    }
+    public CdDTO toDTO(Cd cd){
+        return new CdDTO(cd.getTitre(), cd.getAnneePublication(), cd.getArtiste(), cd.getDuree(), cd.getGenre());
     }
 }
